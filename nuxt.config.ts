@@ -1,35 +1,71 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-	compatibilityDate: '2024-04-03',
-	devtools: { enabled: true },
-	app: {
-		head: {
-      title:'Browser Gadgets',
-			link: [
-				{
-					rel: 'apple-touch-icon',
-					sizes: '180x180',
-					href: '/apple-touch-icon.png',
-				},
-				{
-					rel: 'icon',
-					type: 'image/png',
-					sizes: '32x32',
-					href: '/favicon-32x32.png',
-				},
-				{
-					rel: 'icon',
-					type: 'image/png',
-					sizes: '16x16',
-					href: '/favicon-16x16.png',
-				},
-				{ rel: 'manifest', href: '/site.webmanifest' },
-				{ rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#5bbad5' },
-			],
-			meta: [
-				{ name: 'msapplication-TileColor', content: '#da532c' },
-				{ name: 'theme-color', content: '#ffffff' },
-			],
-		},
+ modules: ['@nuxtjs/tailwindcss', '@nuxt/content'],
+ css: ['/assets/css/main.css'],
+ ssr: true,
+
+ experimental: {
+     payloadExtraction: false
+ },
+
+ router: {
+     options: {
+         strict: false
+     }
+ },
+
+ sourcemap: false,
+
+ content: {
+     // https://content.nuxtjs.org/api/configuration
+     highlight: {
+         theme: 'github-dark',
+         preload: ['java','javascript']
+     },
+     markdown: {
+         // https://github.com/rehypejs/rehype-external-links
+         rehypePlugins: [
+             [
+                 'rehype-external-links',
+                 {
+                     target: '_blank',
+                     rel: 'noopener noreferer'
+                 }
+             ]
+         ]
+     }
+ },
+
+ app: {
+     head: {
+   title:'Browser Gadgets',
+         link: [
+             {
+                 rel: 'apple-touch-icon',
+                 sizes: '180x180',
+                 href: '/apple-touch-icon.png',
+             },
+             {
+                 rel: 'icon',
+                 type: 'image/png',
+                 sizes: '32x32',
+                 href: '/favicon-32x32.png',
+             },
+             {
+                 rel: 'icon',
+                 type: 'image/png',
+                 sizes: '16x16',
+                 href: '/favicon-16x16.png',
+             },
+             { rel: 'manifest', href: '/site.webmanifest' },
+             { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#5bbad5' },
+         ],
+         meta: [
+             { name: 'msapplication-TileColor', content: '#da532c' },
+             { name: 'theme-color', content: '#ffffff' },
+         ],
+     },
 	},
+
+ compatibilityDate: '2024-09-02',
 });
