@@ -1,16 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-	modules: ['@nuxtjs/tailwindcss', '@nuxt/content', '@nuxtjs/seo'],
+	modules: ['@nuxtjs/tailwindcss', '@nuxt/content'],
 	css: ['/assets/css/base.css'],
 	ssr: true,
 	devtools: { enabled: false },
-	site: {
-		url: 'https://browsergadgets.io',
-		name: 'Browser Gadgets',
-		description: 'Everything about Browser Extensions',
-		defaultLocale: 'en', // not needed if you have @nuxtjs/i18n installed
-		ogImage: { enabled: false },
-	},
+	// site: {
+	// 	url: 'https://browsergadgets.io',
+	// 	name: 'Browser Gadgets',
+	// 	description: 'Everything about Browser Extensions',
+	// 	defaultLocale: 'en', // not needed if you have @nuxtjs/i18n installed
+	// 	ogImage: { enabled: false },
+	// },
 	experimental: {
 		payloadExtraction: false,
 	},
@@ -23,25 +23,6 @@ export default defineNuxtConfig({
 
 	sourcemap: false,
 
-	content: {
-		// https://content.nuxtjs.org/api/configuration
-		highlight: {
-			theme: 'github-dark',
-			preload: ['java', 'javascript'],
-		},
-		markdown: {
-			// https://github.com/rehypejs/rehype-external-links
-			rehypePlugins: [
-				[
-					'rehype-external-links',
-					{
-						target: '_blank',
-						rel: 'noopener noreferer',
-					},
-				],
-			],
-		},
-	},
 
 	app: {
 		head: {
