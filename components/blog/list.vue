@@ -17,6 +17,8 @@
                             {{ $formatDate(article.date) }}
                         </p>
                         <p>{{ article.excerpt }}</p>
+
+                        <img :src="article.thumbnail" alt="">
                     </header>
                 </div>
             </NuxtLink>
@@ -37,4 +39,12 @@ const props = defineProps({
     }
 });
 const { $formatDate } = useNuxtApp();
+
+
+props.data.forEach(haha=>{
+    console.log(haha._path);
+    console.log(haha.thumbnail);
+    
+})
+
 </script>

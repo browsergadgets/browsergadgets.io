@@ -1,8 +1,10 @@
 <template>
   <div>
-    <NuxtRouteAnnouncer />
-    <NuxtPage/>
-    <!-- <NuxtWelcome /> -->
+    <!-- <NuxtRouteAnnouncer /> -->
+
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
 
   </div>
 </template>
@@ -41,3 +43,6 @@ useSeoMeta({
 })
 </script>
 
+<style>
+
+</style>
