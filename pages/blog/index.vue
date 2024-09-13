@@ -1,16 +1,20 @@
 <template>
-  <main>
+  <main class="flex flex-col justify-center items-center">
 
     <BlogHero />
+
+
     <ContentQuery path="/blog"
                   :only="['headline', 'excerpt', 'date', 'tags', '_path', 'image', 'thumbnail']"
                   :sort="{
                     date: -1
                   }"
-                  :limit="blogCountLimit"
                   v-slot="{ data }">
-      <BlogList :data="data" />
-    </ContentQuery>
+                  <BlogList :data="data" />
+                </ContentQuery>
+                <!-- :limit="blogCountLimit" -->
+
+    
   </main>
 </template>
 
@@ -21,3 +25,13 @@ const blogCountLimit = 6;
 //   return Math.ceil(_posts.length / blogCountLimit);
 // });
 </script>
+
+
+<style scoped>
+main{
+  padding: 1rem
+
+}
+
+
+</style>

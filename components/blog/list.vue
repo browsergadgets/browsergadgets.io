@@ -1,30 +1,43 @@
 <template>
-    <ul class="grid grid-cols-10 gap-4 text-typography_primary">
-        <li
-            v-for="article in data"
+    <ul class="grid grid-cols-3 gap-8 p-10">
+
+        <li v-for="article in data"
             :key="article._path"
-            class="col-span-full md:col-span-5 relative rounded-md border-2 border-typography_primary hover:border-brand_primary group"
-        >
-            <NuxtLink :to="article._path + '/'" class="p-4 block relative">
-                <div class="wrapper">
-                    <header>
-                        <h2
-                            class="text-h3 leading-h3 font-semibold mb-2 group-hover:text-brand_primary"
-                        >
-                            {{ article.headline }}
-                        </h2>
-                        <p class="text-sm leading-sm mb-4 text-typography_primary/75 dark:text-typography_primary_dark/75">
+            class="">
+
+
+            <NuxtLink :to="article._path + '/'"
+                      class="">
+
+
+                <div class="blogPost_wrapper flex flex-col rounded-2xl  text-white">
+
+                    <div class="postThumbnail_wrapper">
+
+                        <img :src="article.thumbnail"
+                             class="postThumbnail"
+                             alt="Blog post Thumbnail">
+                    </div>
+
+                    <div class="blogPostInfoText p-4">
+
+                        <p class="text-sm py-2 opacity-80">
                             {{ $formatDate(article.date) }}
                         </p>
+                        <h2 class="text-2xl text-center">
+                            {{ article.headline }}
+                        </h2>
                         <p>{{ article.excerpt }}</p>
+                    </div>
 
-                        <img :src="article.thumbnail" alt="">
-                    </header>
+
                 </div>
             </NuxtLink>
+
         </li>
     </ul>
-    <p v-if="data.length == 0" class="w-full md:w-7/12 text-h3 leading-h3 font-bold dark:text-white">{{message}}</p>
+    <p v-if="data.length == 0"
+       class="w-full md:w-7/12 text-h3 leading-h3 font-bold dark:text-white">{{ message }}</p>
 </template>
 
 <script setup>
@@ -41,10 +54,30 @@ const props = defineProps({
 const { $formatDate } = useNuxtApp();
 
 
-props.data.forEach(haha=>{
-    console.log(haha._path);
-    console.log(haha.thumbnail);
-    
-})
-
 </script>
+
+
+<style scoped>
+.postThumbnail_wrapper {
+    /* max-height: 5rem; */
+}
+
+.postThumbnail {
+    height: 100%;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.blogPost_wrapper {
+    background-color: var(--green);
+
+    background:linear-gradient(20deg, var(--green), var(--yellow));
+    box-shadow: 0 .2rem .5rem rgba(0, 0, 0, 0.584);
+    transition: .2s ease;
+}
+
+.blogPost_wrapper:hover {
+    transform: scale(1.02);
+}
+
+</style>

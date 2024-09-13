@@ -1,10 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-	modules: ['@nuxtjs/tailwindcss', '@nuxt/content'],
+	modules: ['@nuxtjs/tailwindcss', '@nuxt/content', '@nuxtjs/seo'],
 	css: ['/assets/css/base.css'],
 	ssr: true,
 	devtools: { enabled: false },
-
+	site: {
+		url: 'https://browsergadgets.io',
+		name: 'Browser Gadgets',
+		description: 'Everything about Browser Extensions',
+		defaultLocale: 'en', // not needed if you have @nuxtjs/i18n installed
+		ogImage: { enabled: false },
+	},
 	experimental: {
 		payloadExtraction: false,
 	},
