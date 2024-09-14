@@ -1,16 +1,16 @@
 <template>
-    <ul class="grid grid-cols-3 gap-8 p-10">
+    <ul class="grid grid-cols-4 gap-8 w-full p-10">
 
         <li v-for="article in data"
             :key="article._path"
-            class="">
+            class="blogPostListItem rounded-2xl  text-white">
 
 
             <NuxtLink :to="article._path + '/'"
                       class="">
 
 
-                <div class="blogPost_wrapper flex flex-col rounded-2xl  text-white">
+                <div class="blogPost_wrapper flex flex-col">
 
                     <div class="postThumbnail_wrapper">
 
@@ -68,16 +68,45 @@ const { $formatDate } = useNuxtApp();
     border-top-right-radius: 1rem;
 }
 
-.blogPost_wrapper {
-    background-color: var(--green);
-
-    background:linear-gradient(20deg, var(--green), var(--yellow));
+.blogPostListItem {
+    /* background:linear-gradient(20deg, var(--green), var(--yellow)); */
     box-shadow: 0 .2rem .5rem rgba(0, 0, 0, 0.584);
     transition: .2s ease;
 }
 
-.blogPost_wrapper:hover {
-    transform: scale(1.02);
+.blogPostListItem:nth-of-type(1n) {
+    background: linear-gradient(180deg, var(--red-light), var(--red-dark));
 }
 
+.blogPostListItem:nth-of-type(1n):hover {
+    background: linear-gradient(170deg, var(--red-light), var(--red-dark));
+}
+
+.blogPostListItem:nth-of-type(2n) {
+    background: linear-gradient(180deg, var(--purple-light), var(--purple-dark));
+}
+
+.blogPostListItem:nth-of-type(2n):hover {
+    background: linear-gradient(170deg, var(--purple-light), var(--purple-dark));
+}
+
+.blogPostListItem:nth-of-type(3n) {
+    background: linear-gradient(180deg, var(--green-light), var(--green-dark));
+}
+
+.blogPostListItem:nth-of-type(3n):hover {
+    background: linear-gradient(170deg, var(--green-light), var(--green-dark));
+}
+
+.blogPostListItem:nth-of-type(4n) {
+    background: linear-gradient(180deg, var(--yellow-light), var(--yellow-dark));
+}
+
+.blogPostListItem:nth-of-type(4n):hover {
+    background: linear-gradient(170deg, var(--yellow-light), var(--yellow-dark));
+}
+
+.blogPostListItem:hover {
+    transform: scale(1.02);
+}
 </style>

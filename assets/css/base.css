@@ -5,10 +5,27 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap'); */
 :root{
 	
-    --red:#FF5757;
-    --purple:#CB6CE6;
-    --green:#00BF63;
-    --yellow:#FFBD59;
+
+    --red: #FF5757;
+    --purple: #CB6CE6;
+    --green: #00BF63;
+    --yellow: #FFBD59;
+
+    /* Lighter Shades */
+    --red-light: #fa8989;
+    --purple-light: #E3A4F3;
+    --green-light: #33D37F;
+    --yellow-light: #FFDA8A;
+
+    /* Darker Shades */
+    --red-dark: #ba2e2e;
+    --purple-dark: #A052B9;
+    --green-dark: #00994F;
+    --yellow-dark: #CC983E;
+
+
+	--white: #ffffff;
+	--black: rgb(44, 44, 44);
 }
 
 
@@ -18,7 +35,7 @@ body {
 	font-weight: 400;
 	font-style: normal;
 
-	background-color: #fefad7;
+	background-color: #fbf4b6;
 
     overflow-x: hidden;
 

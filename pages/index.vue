@@ -1,8 +1,19 @@
 <template>
-    <div class="flex flex-col items-center justify-center min-h-screen">
+    <div class="flex flex-col items-center justify-start min-h-screen">
 
 
-        <h1 class="text-center text-6xl font-extrabold">Browser Gadgets</h1>
+        <header>
+
+            <h1 class="colored-heading"><span class="color-red">Browser </span>
+                <span class="color-purple">Extensions </span><span class="color-green">Are </span><span
+                      class="color-yellow">Fun!</span>
+            </h1>
+
+
+            <span class="">Welcome to the World of Browser Extensions. You can learn & build amazing extensions, talk
+                with other extension developers and users in the community and play with exciting stuff.</span>
+        </header>
+
 
     </div>
     <div class="flex flex-col items-center justify-center min-h-screen">
@@ -58,55 +69,207 @@
 
 
 <style>
+header {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    margin-top: 10rem;
+}
+
+header h1.colored-heading span {
+    /* color: rgb(44, 44, 44); */
+    text-shadow: .1rem .1rem .2rem rgb(0, 0, 0);
+    font-weight: 800;
+    font-size: 5rem;
+}
+
+header span:not(h1 span) {
+    color: rgb(44, 44, 44);
+    opacity: .9;
+    font-size: 1.4rem;
+    font-weight: 700;
+    width: 70%;
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.colored-heading span {}
+
+.color-red {
+    color: var(--red);
+    transform: rotate(-5deg);
+}
+
+.color-purple {
+    color: var(--purple);
+    transform: rotate(3deg);
+}
+
+.color-green {
+    color: var(--green);
+    transform: rotate(-4deg);
+}
+
+.color-yellow {
+    color: var(--yellow);
+    transform: rotate(2deg);
+}
+
+
+/* Base styles for all blobs */
 .backgroundStuff {
     position: absolute;
     z-index: -20;
     max-width: 30rem;
-    opacity: .9;
-    --animationDuration: 30s;
+    pointer-events: none;
+    opacity: 0.8;
+    --animationDuration: calc(20s + 10s * var(--random-factor, 1));
+    /* Random duration */
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
 }
 
-@keyframes shapeChange {
+/* Unique animations for each blob */
+
+/* Red Blob */
+@keyframes shapeChangeRed {
     0% {
-        transform: translate(0) scale(1);
+        transform: translate(0, 0) scale(1);
     }
-    
+
+    25% {
+        transform: translate(4rem, -2rem) rotate(45deg) scale(1.1);
+    }
+
     50% {
-        transform: translate(3rem, 3rem) rotate(180deg) scale(1.1);
+        transform: translate(-3rem, 3rem) rotate(-90deg) scale(0.9);
+    }
+
+    75% {
+        transform: translate(2rem, -4rem) rotate(135deg) scale(1.2);
     }
 
     100% {
-        transform: translate(0) scale(1);
+        transform: translate(0, 0) scale(1);
     }
 }
 
 .backgroundStuff.redBlob {
     top: 0rem;
     left: -1rem;
-    animation: shapeChange var(--animationDuration) infinite ease-in-out;
-    animation-delay: 5s;
+    --random-factor: 1;
+    animation-name: shapeChangeRed;
+    animation-duration: var(--animationDuration);
+}
+
+/* Green Blob */
+@keyframes shapeChangeGreen {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    20% {
+        transform: translate(-5rem, 2rem) rotate(-30deg) scale(1.2);
+    }
+
+    40% {
+        transform: translate(3rem, -4rem) rotate(60deg) scale(0.8);
+    }
+
+    60% {
+        transform: translate(-2rem, 3rem) rotate(-120deg) scale(1.1);
+    }
+
+    80% {
+        transform: translate(4rem, -3rem) rotate(180deg) scale(0.9);
+    }
+
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
 }
 
 .backgroundStuff.greenBlob {
     top: 90vh;
     left: 0rem;
-    animation: shapeChange var(--animationDuration) infinite ease-in-out;
-    animation-delay: 15s;
+    --random-factor: 1.3;
+    animation-name: shapeChangeGreen;
+    animation-duration: var(--animationDuration);
+}
+
+/* Purple Blob */
+@keyframes shapeChangePurple {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    30% {
+        transform: translate(2rem, 4rem) rotate(120deg) scale(1.2);
+    }
+
+    60% {
+        transform: translate(-4rem, -2rem) rotate(-45deg) scale(0.9);
+    }
+
+    90% {
+        transform: translate(3rem, 5rem) rotate(90deg) scale(1.3);
+    }
+
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
 }
 
 .backgroundStuff.purpleBlob {
     top: 0rem;
     right: -2rem;
     max-width: 50rem;
-    animation: shapeChange var(--animationDuration) infinite ease-in-out;
-    animation-delay: 25s;
+    --random-factor: 1.5;
+    animation-name: shapeChangePurple;
+    animation-duration: var(--animationDuration);
+}
+
+/* Yellow Blob */
+@keyframes shapeChangeYellow {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    15% {
+        transform: translate(-4rem, 3rem) rotate(30deg) scale(1.1);
+    }
+
+    30% {
+        transform: translate(5rem, -5rem) rotate(-90deg) scale(1.2);
+    }
+
+    45% {
+        transform: translate(-3rem, 2rem) rotate(45deg) scale(0.8);
+    }
+
+    60% {
+        transform: translate(2rem, -4rem) rotate(-180deg) scale(1);
+    }
+
+    75% {
+        transform: translate(-5rem, 5rem) rotate(120deg) scale(1.3);
+    }
+
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
 }
 
 .backgroundStuff.yellowBlob {
     top: 50rem;
     right: -5rem;
     max-width: 50rem;
-    animation: shapeChange var(--animationDuration) infinite ease-in-out;
-    animation-delay: 35s;
+    --random-factor: 1.8;
+    animation-name: shapeChangeYellow;
+    animation-duration: var(--animationDuration);
 }
 </style>
