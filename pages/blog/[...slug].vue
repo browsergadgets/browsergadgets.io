@@ -39,6 +39,13 @@
 </template>
 
 <script setup>
+
+
+definePageMeta({
+    pageTransition: { name: 'blog-page', mode: 'out-in' }
+});
+
+
 </script>
 
 <style>

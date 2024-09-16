@@ -23,8 +23,12 @@ export default defineNuxtConfig({
 
 	sourcemap: false,
 
-
 	app: {
+		pageTransition: { name: 'page', mode: 'out-in' },
+		
+    // layoutTransition: { name: 'layout', mode: 'out-in' },
+  
+
 		head: {
 			title: 'Browser Gadgets',
 			link: [

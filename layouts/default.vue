@@ -1,11 +1,8 @@
 <template>
-    <div>
-
         <DesktopNav />
-        <slot />
-        <Footer />
-
-    </div>
+        <slot></slot>
+        <Footer></Footer>
+        
 </template>
 
 <script setup>
@@ -19,7 +16,7 @@ const route = useRoute();
 const bgColorOfPages = {
     "/":'var(--yellow-lightest)',
     "/learn/":'var(--green-lightest)',
-    "/blog/":'var(--yellow-lightest)',
+    "/blog/":'var(--purple-lighter)',
     "/ecosystem/":'var(--red-lightest)',
     "/community/":'var(--yellow-lighter)',
 

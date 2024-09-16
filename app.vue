@@ -1,15 +1,20 @@
 <template>
   <div>
-    <!-- <NuxtRouteAnnouncer /> -->
+    <NuxtRouteAnnouncer />
 
     <NuxtLayout>
-      <NuxtPage />
+
+      <Transition :name="pageTransitionName"
+                  mode="out-in">
+        <NuxtPage />
+      </Transition>
+      <!-- <NuxtPage /> -->
     </NuxtLayout>
 
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 useSeoMeta({
   // Basic Meta Tags
   title: 'Browser Gadgets - Everything about Browser Extensions',
@@ -41,8 +46,53 @@ useSeoMeta({
   twitterImageAlt: 'Browser Gadgets logo and tagline',
   ogImageAlt: 'Browser Gadgets logo and tagline',
 })
+
+
+
+const pageTransitionName = computed(() => {
+  // return useRoute().path.startsWith('/blog') ? 'blog-page' : 'page';
+
+    return /^\/blog\/.+/.test(useRoute().path) ? 'blog-page' : 'page';
+});
 </script>
 
 <style>
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.4s;
+}
 
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(1rem);
+}
+
+
+/* Blog page-specific transition */
+.blog-page-enter-active,
+.blog-page-leave-active {
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.blog-page-enter-from {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.blog-page-leave-to {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+/* .layout-enter-active,
+  .layout-leave-active {
+    transition: all 0.4s;
+  }
+  
+  .layout-enter-from,
+  .layout-leave-to {
+   opacity: 0;
+   filter: blur(1rem);
+ } */
 </style>
