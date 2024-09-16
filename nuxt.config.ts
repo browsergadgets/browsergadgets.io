@@ -3,7 +3,7 @@ export default defineNuxtConfig({
 	modules: ['@nuxtjs/tailwindcss', '@nuxt/content'],
 	css: ['/assets/css/base.css'],
 	ssr: true,
-	devtools: { enabled: false },
+	devtools: { enabled: true },
 	// site: {
 	// 	url: 'https://browsergadgets.io',
 	// 	name: 'Browser Gadgets',
@@ -25,9 +25,8 @@ export default defineNuxtConfig({
 
 	app: {
 		pageTransition: { name: 'page', mode: 'out-in' },
-		
-    // layoutTransition: { name: 'layout', mode: 'out-in' },
-  
+
+		// layoutTransition: { name: 'layout', mode: 'out-in' },
 
 		head: {
 			title: 'Browser Gadgets',

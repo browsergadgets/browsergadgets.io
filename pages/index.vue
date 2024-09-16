@@ -79,21 +79,20 @@ header {
     justify-content: center;
     align-items: center;
     text-align: center;
-
     margin-top: 10rem;
 }
 
 header h1.colored-heading span {
     /* color: rgb(44, 44, 44); */
     text-shadow: .1rem .1rem .2rem rgb(0, 0, 0);
-    font-weight: 900;
-    font-size: 7rem;
+    /* font-weight: 900; */
+    /* font-size: 4rem; */
 }
 
 header span:not(h1 span) {
     color: rgb(44, 44, 44);
     opacity: .9;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 700;
     width: 70%;
     margin-top: 1.5rem;

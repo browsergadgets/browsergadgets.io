@@ -10,23 +10,44 @@
                   :skip="(currentPage - 1) * postsPerPage"
                   v-slot="{ data, refresh }">
       <BlogList :data="data" />
-    </ContentQuery>
 
-    <!-- Pagination Controls -->
-    <div class="pagination-controls mt-4">
-      <button @click="prevPage"
-              :disabled="currentPage === 1">Previous</button>
-      <span>Page {{ currentPage }}</span>
-      <button @click="nextPage">Next</button>
-    </div>
+      <!-- Pagination Controls -->
+      <div class="pagination-controls mt-4">
+        <button @click="prevPage"
+                :disabled="currentPage === 1"
+                class="prevBlogListButton">
+          <Icon icon="grommet-icons:form-previous"
+                :ssr="true" />
+        </button>
+        <span class="flex justify-center items-center p-5">Page {{ currentPage }}</span>
+        <button @click="nextPage"
+                :disabled="currentPage >= totalPages"
+                class="nextBlogListButton">
+          <Icon icon="grommet-icons:form-next"
+                :ssr="true" />
+        </button>
+      </div>
+    </ContentQuery>
   </main>
 </template>
 
-<script setup>
-import { ref } from 'vue';
 
-const postsPerPage = 6; // Number of posts per page
+<script setup>
+import { ref, computed } from 'vue';
+import { Icon } from '@iconify/vue/dist/iconify.js';
+import { queryContent } from '#imports';
+
+const postsPerPage = 8; // Number of posts per page
 const currentPage = ref(1); // Current page number
+
+// Fetch the total number of posts
+const { data: totalPosts } = await useAsyncData('totalPosts', async () => {
+  const posts = await queryContent('/blog').find();
+  return posts.length;
+});
+
+// Calculate the total number of pages
+const totalPages = computed(() => Math.ceil(totalPosts.value / postsPerPage));
 
 // Navigation methods
 const prevPage = () => {
@@ -36,9 +57,13 @@ const prevPage = () => {
 };
 
 const nextPage = () => {
-  currentPage.value++;
+  // Disable next page if on the last page
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++;
+  }
 };
 </script>
+
 
 <style scoped>
 main {
@@ -47,6 +72,29 @@ main {
 
 .pagination-controls {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 1rem;
+}
+
+.pagination-controls button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .5rem;
+  width: 3rem;
+  height: 3rem;
+
+  font-size: 2rem;
+  background-color: var(--purple);
+  border-radius: .5rem;
+  color: var(--purple-lightest);
+
+  cursor: pointer;
+}
+
+.pagination-controls button:hover {
+  background-color: var(--purple-dark);
+
 }
 </style>

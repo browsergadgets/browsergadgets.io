@@ -65,7 +65,7 @@
     /* text-shadow: .05rem .05rem .1rem black; */
     font-weight: 900;
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin-inline: 1rem;
     border-radius: 1rem;
     padding: .5rem;

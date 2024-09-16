@@ -1,8 +1,9 @@
 <template>
+    <div>
         <DesktopNav />
         <slot></slot>
         <Footer></Footer>
-        
+    </div>
 </template>
 
 <script setup>

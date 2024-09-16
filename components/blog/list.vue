@@ -18,7 +18,9 @@
         </div>
 
         <!-- Blog Posts -->
-        <ul class="grid grid-cols-4 gap-8 w-full">
+        <TransitionGroup name="list"
+                         tag="ul"
+                         class="grid grid-cols-4 gap-8 w-full">
             <li v-for="article in filteredData"
                 :key="article._path"
                 class="blogPostListItem rounded-2xl text-white">
@@ -41,11 +43,11 @@
                     </div>
                 </NuxtLink>
             </li>
-        </ul>
+        </TransitionGroup>
 
         <!-- No Posts Message -->
         <p v-if="filteredData.length === 0"
-           class="w-full md:w-7/12 text-h3 leading-h3 font-bold dark:text-white">
+           class="w-full text-[var(--purple-dark)] font-bold text-2xl text-center p-10">
             {{ message }}
         </p>
     </div>
@@ -120,20 +122,32 @@ const filteredData = computed(() => {
 </script>
 
 <style scoped>
+/* Transition Styles for the List */
+.list-enter-active,
+.list-leave-active {
+    transition: all 0.3s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
 /* Category Button Styles */
 .category-button {
     margin: 0.5rem;
     padding: 0.5rem 1rem;
-    border: 1px solid #ccc;
+    border: .1rem solid var(--purple-light);
     border-radius: 0.5rem;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .category-button.active {
-    background-color: #4a90e2;
+    background-color: var(--purple);
     color: white;
-    border-color: #4a90e2;
+    border-color: var(--purple-dark);
 }
 
 .category-button:not(.active) {
@@ -142,18 +156,17 @@ const filteredData = computed(() => {
 }
 
 .category-button:hover {
-    background-color: #4a90e2;
+    background-color: var(--purple);
     color: white;
 }
 
 /* Existing Styles */
 .postThumbnail_wrapper {
-    /* max-height: 5rem; */
+    /* max-height: 10rem; */
 }
 
 .postThumbnail {
     width: 100%;
-    height: 100%;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
 }

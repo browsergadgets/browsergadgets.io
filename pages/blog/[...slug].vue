@@ -35,10 +35,24 @@
 
             </template>
         </ContentDoc>
+
+        
     </main>
 </template>
 
 <script setup>
+
+import { onBeforeMount } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+onBeforeMount(() => {
+    router.beforeEach((to, from, next) => {
+        window.scrollTo(0, 0);
+        next();
+    });
+});
 
 
 definePageMeta({

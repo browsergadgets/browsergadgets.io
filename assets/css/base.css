@@ -69,3 +69,21 @@ body {
 	padding: 0;
 	box-sizing: border-box;
 }
+
+
+button:active:not(:disabled){
+    transform: scale(.95);
+}
+
+button:disabled{
+    /* transform: scale(.95); */
+    filter: grayscale(.6);
+    opacity: .6;
+    cursor: not-allowed !important;
+}
+
+
+h1{
+    font-weight: 900;
+    font-size: 3rem;
+}

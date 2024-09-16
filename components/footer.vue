@@ -7,7 +7,6 @@
            target="_blank" class="text-blue-600">Prakashh Technologies</a> Ecosystem</p>
     </div>
   </footer>
-
 </template>
 
 

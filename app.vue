@@ -3,12 +3,10 @@
     <NuxtRouteAnnouncer />
 
     <NuxtLayout>
-
       <Transition :name="pageTransitionName"
                   mode="out-in">
         <NuxtPage />
       </Transition>
-      <!-- <NuxtPage /> -->
     </NuxtLayout>
 
   </div>
@@ -52,7 +50,7 @@ useSeoMeta({
 const pageTransitionName = computed(() => {
   // return useRoute().path.startsWith('/blog') ? 'blog-page' : 'page';
 
-    return /^\/blog\/.+/.test(useRoute().path) ? 'blog-page' : 'page';
+  return /^\/blog\/.+/.test(useRoute().path) ? 'blog-page' : 'page';
 });
 </script>
 
@@ -76,12 +74,12 @@ const pageTransitionName = computed(() => {
 }
 
 .blog-page-enter-from {
-  transform: translateX(100%);
+  transform: translateY(100%);
   opacity: 0;
 }
 
 .blog-page-leave-to {
-  transform: translateX(-100%);
+  transform: translateY(-100%);
   opacity: 0;
 }
 
