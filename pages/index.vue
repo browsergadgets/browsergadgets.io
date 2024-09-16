@@ -4,9 +4,9 @@
 
         <header>
 
-            <h1 class="colored-heading"><span class="color-red">Browser </span>
-                <span class="color-purple">Extensions </span><span class="color-green">Are </span><span
-                      class="color-yellow">Fun!</span>
+            <h1 class="colored-heading"><span class="color-yellow">Browser </span>
+                <span class="color-green">Extensions </span><span class="color-purple">Are </span><span
+                      class="color-red">Fun!</span>
             </h1>
 
 
@@ -19,7 +19,7 @@
     <div class="flex flex-col items-center justify-center min-h-screen">
 
 
-        <h1 class="text-center text-5xl font-bold">What exactly do we do</h1>
+        <!-- <h1 class="text-center text-5xl font-bold">What exactly do we do</h1> -->
 
     </div>
 
@@ -83,14 +83,14 @@ header {
 header h1.colored-heading span {
     /* color: rgb(44, 44, 44); */
     text-shadow: .1rem .1rem .2rem rgb(0, 0, 0);
-    font-weight: 800;
-    font-size: 5rem;
+    font-weight: 900;
+    font-size: 7rem;
 }
 
 header span:not(h1 span) {
     color: rgb(44, 44, 44);
     opacity: .9;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 700;
     width: 70%;
     margin-top: 1.5rem;
@@ -123,7 +123,7 @@ header span:not(h1 span) {
 /* Base styles for all blobs */
 .backgroundStuff {
     position: absolute;
-    z-index: -20;
+    z-index: -1;
     max-width: 30rem;
     pointer-events: none;
     opacity: 0.8;

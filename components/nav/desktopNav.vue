@@ -1,5 +1,5 @@
 <template>
-    <nav class="flex mt-4 p-5 items-center justify-between">
+    <nav class="flex pt-8 p-5 items-center justify-between">
 
         <NuxtLink to="/"
                   class="navLogoLink">
@@ -60,7 +60,9 @@
 }
 
 .nav-link {
-    text-shadow: .05rem .05rem .1rem black;
+    /* text-shadow: .08rem .08rem black; */
+    text-shadow: .06rem .06rem rgba(0, 0, 0, 0.905);
+    /* text-shadow: .05rem .05rem .1rem black; */
     font-weight: 900;
     text-decoration: none;
     font-size: 1.5rem;
@@ -79,6 +81,7 @@
 .nav-link:nth-child(1n):hover {
     background-color: var(--red);
     color: var(--white);
+    box-shadow: .1rem .1rem rgb(0, 0, 0);
 }
 .nav-link:nth-child(2n) {
     color: var(--green);

@@ -5,7 +5,7 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap'); */
 :root{
 	
-
+    /* Base Colors */
     --red: #FF5757;
     --purple: #CB6CE6;
     --green: #00BF63;
@@ -13,16 +13,37 @@
 
     /* Lighter Shades */
     --red-light: #fa8989;
+    --red-lighter: #fcb3b3;
+    --red-lightest: #fde5e5;
+
     --purple-light: #E3A4F3;
+    --purple-lighter: #EDC2F7;
+    --purple-lightest: #F7E5FB;
+
     --green-light: #33D37F;
+    --green-lighter: #66E0A0;
+    --green-lightest: #b3f3cf;
+
     --yellow-light: #FFDA8A;
+    --yellow-lighter: #FFE6AC;
+    --yellow-lightest: #FFF3D3;
 
     /* Darker Shades */
     --red-dark: #ba2e2e;
-    --purple-dark: #A052B9;
-    --green-dark: #00994F;
-    --yellow-dark: #CC983E;
+    --red-darker: #8b2121;
+    --red-darkest: #5e1515;
 
+    --purple-dark: #A052B9;
+    --purple-darker: #7A3D8D;
+    --purple-darkest: #542961;
+
+    --green-dark: #00994F;
+    --green-darker: #00783D;
+    --green-darkest: #004f29;
+
+    --yellow-dark: #CC983E;
+    --yellow-darker: #99732F;
+    --yellow-darkest: #664d1f;
 
 	--white: #ffffff;
 	--black: rgb(44, 44, 44);
@@ -34,13 +55,12 @@ body {
 	font-optical-sizing: auto;
 	font-weight: 400;
 	font-style: normal;
-
-	background-color: #fbf4b6;
-
+	/* background-color: var(--yellow-lightest); */
     overflow-x: hidden;
-
-	
+    transition: background-color 0.5s ease;
 }
+
+
 
 *,
 *::before,
