@@ -1,17 +1,26 @@
 <template>
   <div>
-    <iframe src="https://browsergadgets.substack.com/embed"
-            width="480"
-            height="320"
-            style="border:1px solid #EEE; background:white;"
-            frameborder="0"
-            scrolling="no"></iframe>
+
+    <h1>We are building an ecosystem of browser extensions</h1>
+    <button @click="openNewsletterModal">Stay updated</button>
+
+    <newsletterModal :modal-open="openModal"/>
+
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
+import newsletterModal from '~/components/newsletterModal.vue';
+import { ref } from 'vue';
 
+const openModal = ref(false);
+const openNewsletterModal = ()=>{
+  openModal.value=true
+}
 </script>
+
+
+
 
 <style>
 
