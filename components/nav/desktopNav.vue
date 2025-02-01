@@ -31,12 +31,12 @@ const logoImageSrc = ref(new URL('../../assets/images/logo-transparent.png', imp
 
 function logoImageHovered() {
     console.log('hovered');
-    logoImageSrc.value = new URL('@/assets/images/logoCharacters-transparent.png', import.meta.url).href;
+    logoImageSrc.value = new URL('../../assets/images/logoCharacters-transparent.png', import.meta.url).href;
 }
 
 function logoImageLeft() {
     console.log('left');
-    logoImageSrc.value = new URL('@/assets/images/logo-transparent.png', import.meta.url).href;
+    logoImageSrc.value = new URL('../../assets/images/logo-transparent.png', import.meta.url).href;
 }
 
 </script>
