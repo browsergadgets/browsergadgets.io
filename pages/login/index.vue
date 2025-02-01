@@ -1,15 +1,13 @@
 <template>
-    <div>
-
-    </div>
+  <div>
+    
+  </div>
 </template>
 
-<script setup>
-
+<script lang="ts" setup>
 
 </script>
 
 <style>
-
 
 </style>

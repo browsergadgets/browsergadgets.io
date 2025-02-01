@@ -1,9 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-	modules: ['@nuxtjs/tailwindcss', '@nuxt/content'],
+	// modules: ['@nuxtjs/tailwindcss', '@nuxt/content', '@nuxtjs/supabase'],
+	modules: ['@nuxtjs/tailwindcss', '@nuxt/content', '@nuxt/fonts'],
 	css: ['/assets/css/base.css'],
 	ssr: true,
-	devtools: { enabled: true },
+	devtools: { enabled: false },
 	// site: {
 	// 	url: 'https://browsergadgets.io',
 	// 	name: 'Browser Gadgets',
@@ -79,4 +80,12 @@ export default defineNuxtConfig({
 	},
 
 	compatibilityDate: '2024-09-02',
+
+	// supabase: {
+	// 	redirectOptions: {
+	// 		login: '/login',
+	// 		callbackUrl: '/',
+	// 		callback: '/',
+	// 	},
+	// },
 });

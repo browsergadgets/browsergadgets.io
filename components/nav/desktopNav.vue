@@ -1,44 +1,50 @@
 <template>
-    <nav class="flex pt-8 p-5 items-center justify-between">
+    <nav class="flex p-4 my-4 items-center justify-between">
 
-        <NuxtLink to="/"
-                  class="navLogoLink">
-            <img src="../../assets/images/bgioText_cropped-transparent.png"
-                 class="navLogo"
-                 alt="">
-        </NuxtLink>
+
+        <div class="flex items-center justify-center"
+             @mouseenter="logoImageHovered" @mouseleave="logoImageLeft">
+            <NuxtLink to="/"
+                      class="navLogoLink">
+                <img :src="logoImageSrc"
+                     class="navLogo"
+                     ref="logoImage"
+                     alt="">
+            </NuxtLink>
+        </div>
 
         <div class="navLinks">
             <NuxtLink to="/ecosystem/"
                       exact-active-class="active-link"
                       class="nav-link">
-                🌐Ecosystem
-            </NuxtLink>
-            <NuxtLink to="/learn/"
-                      exact-active-class="active-link"
-                      class="nav-link">
-                📖Learn
-            </NuxtLink>
-            <NuxtLink to="/blog/"
-                      exact-active-class="active-link"
-                      class="nav-link">
-                🗒️Blog
-            </NuxtLink>
-            <NuxtLink to="/community/"
-                      exact-active-class="active-link"
-                      class="nav-link">
-                🤗Community
+                Signup
             </NuxtLink>
         </div>
     </nav>
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
+
+const logoImage = ref(null);
+const logoImageSrc = ref(new URL('../../assets/images/logo-transparent.png', import.meta.url).href);
+
+function logoImageHovered() {
+    console.log('hovered');
+    logoImageSrc.value = new URL('@/assets/images/logoCharacters-transparent.png', import.meta.url).href;
+}
+
+function logoImageLeft() {
+    console.log('left');
+    logoImageSrc.value = new URL('@/assets/images/logo-transparent.png', import.meta.url).href;
+}
+
 </script>
 
 <style scoped>
 .navLogo {
-    max-width: 15rem;
+    width: 100%;
+    max-width: 4rem;
     z-index: -2;
     pointer-events: none;
     /* mix-blend-mode: multiply; */
@@ -49,7 +55,7 @@
     transition: .3s ease;
 }
 .navLogoLink:active {
-    transform: scale(0.95);
+    transform: scale(0.9);
 }
 
 
@@ -60,66 +66,36 @@
 }
 
 .nav-link {
-    /* text-shadow: .08rem .08rem black; */
-    text-shadow: .06rem .06rem rgba(0, 0, 0, 0.905);
-    /* text-shadow: .05rem .05rem .1rem black; */
+    font-family: 'MoreSugar';
+    text-shadow: .1rem .1rem rgb(0, 0, 0);
     font-weight: 900;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin-inline: 1rem;
     border-radius: 1rem;
     padding: .5rem;
     text-align: center;
     transition: .1s ease;
+    letter-spacing: .1rem;
 }
 
 .nav-link:nth-child(1n) {
-    color: var(--red);
+    color: var(--white);
+    background-color: var(--green);
+    box-shadow: .1rem .1rem rgb(0, 0, 0);
+    /* color: var(--green-light); */
 }
-.nav-link:nth-child(1n).active-link,
 .nav-link:nth-child(1n):focus,
 .nav-link:nth-child(1n):hover {
-    background-color: var(--red);
-    color: var(--white);
-    box-shadow: .1rem .1rem rgb(0, 0, 0);
-}
-.nav-link:nth-child(2n) {
-    color: var(--green);
-}
-
-.nav-link:nth-child(2n).active-link,
-.nav-link:nth-child(2n):focus,
-.nav-link:nth-child(2n):hover {
-    background-color: var(--green);
-    color: var(--white);
-}
-
-.nav-link:nth-child(3n) {
-    color: var(--purple);
-}
-.nav-link:nth-child(3n).active-link,
-.nav-link:nth-child(3n):focus,
-.nav-link:nth-child(3n):hover {
-    background-color: var(--purple);
-    color: var(--white);
-}
-
-.nav-link:nth-child(4n) {
-    color: var(--yellow);
-}
-.nav-link:nth-child(4n).active-link,
-.nav-link:nth-child(4n):focus,
-.nav-link:nth-child(4n):hover {
-    background-color: var(--yellow);
-    color: var(--white);
+    /* transform: scale(1.05); */
 }
 
 .nav-link:active {
     transform: scale(0.9);
 }
 
-.active-link {
+/* .active-link {
     /* font-weight: 800; */
     /* color: #00b351; */
-}
+/*}  */
 </style>

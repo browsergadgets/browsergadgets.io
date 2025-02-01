@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+@font-face {
+    font-family: 'MoreSugar';
+    src: url('../fonts/moreSugar/MoreSugar-Regular.ttf') format('truetype'),
+         url('../fonts/moreSugar/MoreSugar-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'MoreSugar';
+    src: url('../fonts/moreSugar/MoreSugar-Thin.ttf') format('truetype'),
+         url('../fonts/moreSugar/MoreSugar-Thin.otf') format('opentype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap'); */
 :root{
 	
@@ -61,7 +80,6 @@ body {
 }
 
 
-
 *,
 *::before,
 *::after {
@@ -70,6 +88,10 @@ body {
 	box-sizing: border-box;
 }
 
+::selection{
+    color: white;
+    background-color: #7ed957;
+}
 
 button:active:not(:disabled){
     transform: scale(.95);

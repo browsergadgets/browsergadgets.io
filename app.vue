@@ -7,7 +7,10 @@
                   mode="out-in">
         <NuxtPage />
       </Transition>
+
+      
     </NuxtLayout>
+
 
   </div>
 </template>
@@ -46,6 +49,35 @@ useSeoMeta({
 })
 
 
+onMounted(() => {
+  console.log('onMounted hook called');
+  
+  // The ID of the extension we want to talk to.
+  const editorExtensionId = 'kcpkmmmoknpddilaacefkjdnbikgbcon';
+  console.log('Editor Extension ID:', editorExtensionId);
+
+  // Check if extension is installed
+  if (chrome && chrome.runtime) {
+    console.log('Chrome runtime is available');
+    
+    // Make a request:
+    chrome.runtime.sendMessage(
+      editorExtensionId,
+      {
+        msg: "Hello from Browser Gadgets"
+      },
+      (response) => {
+        console.log('Response received from extension:', response);
+        if (!response.success) {
+          console.log('Error: Extension failed to open URL in editor');
+          // handleError(url);
+        }
+      }
+    );
+  } else {
+    console.log('Chrome runtime is not available');
+  }
+})
 
 const pageTransitionName = computed(() => {
   // return useRoute().path.startsWith('/blog') ? 'blog-page' : 'page';
