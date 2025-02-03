@@ -13,16 +13,11 @@
 
         <!-- Top Section: Links -->
         <div class="grid grid-cols-3 gap-4 justify-center mb-2 w-auto px-4">
-          <a href="/legal/privacy-policy"
-             class="footer-link">Privacy Policy</a>
-          <a href="/legal/refund-policy"
-             class="footer-link">Refund Policy</a>
-          <a href="/legal/terms-and-conditions"
-             class="footer-link">Terms & Conditions</a>
-          <a href="/about"
-             class="footer-link">About</a>
-          <a href="/tutorials"
-             class="footer-link">Tutorials</a>
+          <NuxtLink to="/legal/privacy-policy" class="footer-link">Privacy Policy</NuxtLink>
+          <NuxtLink to="/legal/refund-policy" class="footer-link">Refund Policy</NuxtLink>
+          <NuxtLink to="/legal/terms-and-conditions" class="footer-link">Terms & Conditions</NuxtLink>
+          <NuxtLink to="/about" class="footer-link">About</NuxtLink>
+          <NuxtLink to="/tutorials" class="footer-link">Tutorials</NuxtLink>
           <a href="https://prakashh.com/careers"
              class="footer-link">Careers</a>
         </div>

@@ -18,34 +18,46 @@
             </header>
 
 
-            <a href="/mywebshortcuts"><img src="../assets/images/gadgetsCharacters/mywebshortcuts-globe.png"
+            <a href="/gadgets//mywebshortcuts"><img src="../assets/images/gadgetsCharacters/mywebshortcuts-globe.png"
                      alt="logo"
                      class="gadgetCharacters"
                      data-speed="0.3"
                      style="left: 5%; bottom: 20%; rotate: -15deg;"></a>
-            <a href="/mywebshortcuts"><img src="../assets/images/gadgetsCharacters/mywebshortcuts-keyboard.png"
+            <a href="/gadgets/mywebshortcuts"><img src="../assets/images/gadgetsCharacters/mywebshortcuts-keyboard.png"
                      alt="logo"
                      class="gadgetCharacters"
                      data-speed="0.5"
+
                      style="left: 15%; bottom: 20%; rotate: 10deg;"></a>
 
 
-            <a href="/broba"><img src="../assets/images/gadgetsCharacters/broba.png"
+            <a href="/grandplan"><img src="../assets/images/gadgetsCharacters/broba.png"
                      alt="logo"
                      class="gadgetCharacters"
+                     title="Yet to be launched"
                      data-speed="0.2"
-                     style="left: 65%; bottom: 0%; rotate: -8deg;"></a>
+                     style="left: 65%; bottom: 0%; rotate: -8deg; filter: blur(10px)"></a>
 
-            <a href="/kavach"><img src="../assets/images/gadgetsCharacters/kavach-bigBrother.png"
+
+
+
+            <a href="/grandplan"><img src="../assets/images/gadgetsCharacters/kavach-bigBrother.png"
                      alt="logo"
                      class="gadgetCharacters"
+                     title="Yet to be launched"
                      data-speed="0.4"
-                     style="right: 0%; bottom: 25%; rotate: 12deg;"></a>
-            <a href="/kavach"><img src="../assets/images/gadgetsCharacters/kavach-littleSister.png"
+                     style="right: 0%; bottom: 25%; rotate: 12deg; filter: blur(10px)"></a>
+
+
+
+            <a href="/grandplan"><img src="../assets/images/gadgetsCharacters/kavach-littleSister.png"
                      alt="logo"
                      class="gadgetCharacters"
+                     title="Yet to be launched"
                      data-speed="0.6"
-                     style="right: 0%; bottom: 5%; rotate: -20deg;"></a>
+                     style="right: 0%; bottom: 5%; rotate: -20deg; filter: blur(10px)"></a>
+
+
 
 
 
