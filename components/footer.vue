@@ -4,48 +4,56 @@
     <section class="flex flex-row items-center w-full">
       <div class="left-section flex-1 w-full flex flex-col items-center">
         <!-- <h1>Browser Gadgets</h1> -->
-         <img src="../assets/images/browsergadgets_logo_with_text.png" alt="Browser Gadgets Logo" class="w-1/3">
-    </div>
-
-    <div class="right-section flex-1 w-full flex flex-col items-center">
-
-      <!-- Top Section: Links -->
-      <div class="grid grid-cols-3 gap-4 justify-center mb-2 w-auto px-4">
-        <a href="/legal/privacy-policy"
-           class="footer-link">Privacy Policy</a>
-        <a href="/legal/refund-policy"
-           class="footer-link">Refund Policy</a>
-        <a href="/legal/terms-and-conditions"
-           class="footer-link">Terms & Conditions</a>
-        <a href="/about"
-           class="footer-link">About</a>
-        <a href="/tutorials"
-           class="footer-link">Tutorials</a>
-        <a href="/tutorials"
-           class="footer-link">Careers</a>
+        <img src="../assets/images/browsergadgets_logo_with_text.png"
+             alt="Browser Gadgets Logo"
+             class="w-1/3">
       </div>
-      
+
+      <div class="right-section flex-1 w-full flex flex-col items-center">
+
+        <!-- Top Section: Links -->
+        <div class="grid grid-cols-3 gap-4 justify-center mb-2 w-auto px-4">
+          <a href="/legal/privacy-policy"
+             class="footer-link">Privacy Policy</a>
+          <a href="/legal/refund-policy"
+             class="footer-link">Refund Policy</a>
+          <a href="/legal/terms-and-conditions"
+             class="footer-link">Terms & Conditions</a>
+          <a href="/about"
+             class="footer-link">About</a>
+          <a href="/tutorials"
+             class="footer-link">Tutorials</a>
+          <a href="https://prakashh.com/careers"
+             class="footer-link">Careers</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Social Links -->
+    <div class="flex flex-wrap justify-center space-x-8 my-2 w-full">
+      <a href="https://x.com/browsergadgets"
+         target="_blank"
+         class="footer-link">
+        <Icon icon="mdi:twitter"
+              width="24"
+              height="24" />
+      </a>
+      <a href="https://www.youtube.com/@browsergadgets"
+         target="_blank"
+         class="footer-link">
+        <Icon icon="mdi:youtube"
+              width="24"
+              height="24" />
+      </a>
+      <a href="https://discord.gg/kPGKshWBgT"
+         target="_blank"
+         class="footer-link">
+        <Icon icon="mdi:discord"
+              width="24"
+              height="24" />
+      </a>
     </div>
-  </section>
-  
-  <!-- Social Links -->
-  <div class="flex flex-wrap justify-center space-x-8 my-2 w-full">
-    <a href="https://x.com"
-       target="_blank"
-       class="footer-link">
-      <Icon icon="mdi:twitter" width="24" height="24" />
-    </a>
-    <a href="https://youtube.com"
-       target="_blank"
-       class="footer-link">
-      <Icon icon="mdi:youtube" width="24" height="24" />
-    </a>
-    <a href="https://discord.com"
-       target="_blank"
-       class="footer-link">
-      <Icon icon="mdi:discord" width="24" height="24" />
-    </a>
-  </div>
     <!-- Bottom Section: Copyright and Powered By -->
     <div class="flex flex-col items-center border-t border-black pt-4 w-full">
       <p class="text-sm text-gray-600">© {{ new Date().getFullYear() }} browsergadgets.io. All rights reserved.</p>
