@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	// modules: ['@nuxtjs/tailwindcss', '@nuxt/content', '@nuxtjs/supabase'],
-	modules: ['@nuxtjs/tailwindcss', '@nuxt/content', '@nuxt/fonts'],
+	modules: ['@nuxtjs/tailwindcss', '@nuxt/content', '@nuxt/fonts', '@nuxtjs/supabase'],
 	css: ['/assets/css/base.css'],
 	ssr: true,
 	devtools: { enabled: false },
@@ -81,11 +81,14 @@ export default defineNuxtConfig({
 
 	compatibilityDate: '2024-09-02',
 
-	// supabase: {
-	// 	redirectOptions: {
-	// 		login: '/login',
-	// 		callbackUrl: '/',
-	// 		callback: '/',
-	// 	},
-	// },
+	supabase: {
+		// Options
+		redirectOptions: {
+			login: '/login',
+			callback: '/confirm',
+			include: ['/login'],
+			exclude: [],
+			cookieRedirect: false,
+		},
+	},
 });
