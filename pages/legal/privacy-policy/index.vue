@@ -1,7 +1,7 @@
 <template>
   <div class="privacy-policy-container">
-    <h1>Privacy Policy</h1>
-    <p><strong>Effective Date:</strong> 02 February, 2025</p>
+    <h1 class="font-[MoreSugar] font-normal">Privacy Policy</h1>
+    <p class="my-4"><strong>Effective Date:</strong> 02 February, 2025</p>
 
     <section>
       <h2>Introduction</h2>
@@ -67,8 +67,8 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
+  background: linear-gradient(to bottom, #fff1ba, #ffffff);
+  border-radius: 2rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 

@@ -6,7 +6,7 @@
                 @mouseenter="logoImageHovered" @mouseleave="logoImageLeft">
                 <NuxtLink to="/"
                         class="navLogoLink">
-                    <img :src="logoImageSrc"
+                    <img src="../../assets/images/logo-transparent.png"
                         class="navLogo"
                         ref="logoImage"
                         alt="">
@@ -26,18 +26,7 @@
     <script setup>
     import { onMounted, ref } from 'vue';
 
-    const logoImage = ref(null);
-    const logoImageSrc = ref(new URL('../../assets/images/logo-transparent.png', import.meta.url).href);
 
-    function logoImageHovered() {
-        console.log('hovered');
-        logoImageSrc.value = new URL('../../assets/images/logoCharacters-transparent.png', import.meta.url).href;
-    }
-
-    function logoImageLeft() {
-        console.log('left');
-        logoImageSrc.value = new URL('../../assets/images/logo-transparent.png', import.meta.url).href;
-    }
 
     </script>
 

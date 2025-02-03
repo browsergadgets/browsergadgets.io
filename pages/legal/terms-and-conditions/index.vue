@@ -1,6 +1,6 @@
 <template>
   <div class="terms-container">
-    <h1>Terms and Conditions</h1>
+    <h1 class="font-[MoreSugar] font-normal">Terms and Conditions</h1>
 
     <p class="mb-4">Welcome to our website. By accessing or using our services, you agree to comply with and be bound by the
       following terms and conditions. If you do not agree to these terms, please do not use our services.</p>
@@ -94,8 +94,9 @@
   margin: 0 auto;
   padding: 2rem;
   background-color: #f9f9f9;
-  border-radius: 8px;
+  border-radius: 2rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to bottom, #fff1ba, #ffffff);
 }
 
 h1, h2 {

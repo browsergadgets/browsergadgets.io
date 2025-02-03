@@ -47,27 +47,31 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute();
 
-const bgColorOfPages = {
-    "/":'var(--yellow-lightest)',
-    "/learn/":'var(--green-lightest)',
-    "/blog/":'var(--purple-lighter)',
-    "/ecosystem/":'var(--red-lightest)',
-    "/community/":'var(--yellow-lighter)',
+// const bgColorOfPages = {
+//     "/":'var(--yellow-lightest)',
+//     "/learn/":'var(--green-lightest)',
+//     "/blog/":'var(--purple-lighter)',
+//     "/ecosystem/":'var(--red-lightest)',
+//     "/community/":'var(--yellow-lighter)',
 
-}
+// }
 
-onMounted(()=>{
-    document.body.style.backgroundColor = bgColorOfPages?.[route.path];
+// onMounted(()=>{
+//     document.body.style.backgroundColor = bgColorOfPages?.[route.path];
 
-    watch(route, newRoute=>{
-        document.body.style.backgroundColor = bgColorOfPages?.[newRoute.path];
-    })
+//     watch(route, newRoute=>{
+//         document.body.style.backgroundColor = bgColorOfPages?.[newRoute.path];
+//     })
 
 
-})
+// })
 </script>
 
 <style>
+body{
+    background-color: var(--yellow-lightest);
+}
+
 /* Base styles for all blobs */
 .backgroundStuff {
     position: absolute;
