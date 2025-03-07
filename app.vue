@@ -5,26 +5,33 @@
     <NuxtLayout>
       <Transition :name="pageTransitionName"
                   mode="out-in">
-        <NuxtPage />
-      </Transition>
 
+          <NuxtPage />
+        </Transition>
+        
+        
+      </NuxtLayout>
       
-    </NuxtLayout>
-
-
-  </div>
+      
+    </div>
 </template>
 
 <script setup>
+
+
+
+
+const websiteTitle = ref("Browser Gadgets - Solving your Browsing Problems")
+
 useSeoMeta({
   // Basic Meta Tags
-  title: 'Browser Gadgets - Everything about Browser Extensions',
+  title: websiteTitle.value,
   description: 'Discover and master browser extensions with Browser Gadgets. Learn to build, find the best tools, and enhance your browsing experience.',
   keywords: 'browser extensions, Chrome extensions, Firefox add-ons, extension development, browser tools',
   author: 'Browser Gadgets',
 
   // Open Graph (OG) for Facebook, LinkedIn, etc.
-  ogTitle: 'Browser Gadgets - Everything about Browser Extensions',
+  ogTitle: websiteTitle.value,
   ogDescription: 'Master browser extensions with our expert guides, curated collections, and premium tools.',
   ogImage: 'https://browsergadgets.io/assets/OGimage.png', // Recommended dimensions: 1200x630px
   ogUrl: 'https://browsergadgets.io/',
@@ -34,7 +41,7 @@ useSeoMeta({
 
   // Twitter Cards
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Browser Gadgets - Everything about Browser Extensions',
+  twitterTitle: websiteTitle.value,
   twitterDescription: 'Explore, learn, and master browser extensions with Browser Gadgets.',
   twitterImage: 'OGimage.png', // Recommended dimensions: 1200x675px
   twitterSite: '@BrowserGadgets', // Your Twitter handle
@@ -48,18 +55,17 @@ useSeoMeta({
   ogImageAlt: 'Browser Gadgets logo and tagline',
 })
 
-
 onMounted(() => {
   console.log('onMounted hook called');
-  
+
   // The ID of the extension we want to talk to.
-  const editorExtensionId = 'kcpkmmmoknpddilaacefkjdnbikgbcon';
+  const editorExtensionId = 'eieokkopejddkfnfioklcjabmhpbmgke';
   console.log('Editor Extension ID:', editorExtensionId);
 
   // Check if extension is installed
   if (chrome && chrome.runtime) {
     console.log('Chrome runtime is available');
-    
+
     // Make a request:
     chrome.runtime.sendMessage(
       editorExtensionId,
@@ -68,10 +74,6 @@ onMounted(() => {
       },
       (response) => {
         console.log('Response received from extension:', response);
-        if (!response.success) {
-          console.log('Error: Extension failed to open URL in editor');
-          // handleError(url);
-        }
       }
     );
   } else {

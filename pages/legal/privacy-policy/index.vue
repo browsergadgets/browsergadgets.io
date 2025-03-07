@@ -44,7 +44,7 @@
       <h2>Third-Party Sharing</h2>
       <ul>
         <li>We do not share or sell user data to third parties.</li>
-        <li>Payments are securely handled by Paddle.</li>
+        <li>Payments are securely handled by Dodo Payments.</li>
       </ul>
     </section>
 

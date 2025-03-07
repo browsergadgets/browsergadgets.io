@@ -1,8 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-
+@import url('./tailwind.css');
+@import url('./vue.css');
 
 @font-face {
     font-family: 'MoreSugar';
@@ -114,4 +112,64 @@ h1{
 h2{
   font-size: 1.5rem;
   font-weight: 600;
+}
+
+
+button {
+    background-color: var(--green);
+    width: fit-content;
+    padding: .5rem .7rem;
+    border-radius: .5rem;
+    color: whitesmoke;
+    margin-block: 1rem;
+    transition: .2s ease;
+
+    text-shadow: .1rem .1rem black;
+    box-shadow: .1rem .1rem black;
+}
+
+button:hover {
+    background-color: var(--green-light);
+
+}
+
+button.yellow-bg {
+    color: #ffffff;
+    background-color: #ffb219;
+}
+
+button.yellow-bg:hover {
+    background-color: var(--yellow);
+}
+
+button.red-bg {
+    color: #ffffff;
+    background-color: var(--red);
+}
+
+button.red-bg:hover {
+    background-color: var(--red-light);
+}
+
+button.purple-bg {
+    color: #ffffff;
+    background-color: var(--purple);
+}
+
+button.purple-bg:hover {
+    background-color: var(--purple-light);
+}
+
+
+
+section{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 1rem 2rem;
+    margin-block: 1rem;
 }

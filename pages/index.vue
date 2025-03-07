@@ -63,9 +63,9 @@
 
 
         </div>
+
+
         <div class="flex flex-col items-center min-h-screen mt-10">
-
-
             <h2 class="subHeading"><span>An</span> <span>Ecosystem</span></h2>
 
             <p class="text-center text-2xl max-w-2xl font-[MoreSugar] font-thin text-[#000000] p-4"
@@ -94,7 +94,15 @@
 <script setup>
 import { onMounted } from 'vue';
 
-onMounted(() => {
+// const getTheData = async () => {
+//     const response = await $fetch('/api/g/mywebshortcuts/news/latestNews')
+//     console.log(response);
+// }
+// await getTheData()
+
+
+
+onMounted(async () => {
     const characters = document.querySelectorAll('.gadgetCharacters');
 
     characters.forEach((char, index) => {
@@ -132,6 +140,7 @@ onMounted(() => {
             char.style.transform = `translateY(${yPos}px)`;
         });
     });
+
 });
 </script>
 

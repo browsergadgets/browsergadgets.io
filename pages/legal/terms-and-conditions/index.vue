@@ -37,7 +37,7 @@
     <section>
       <h2>Payments & Subscription</h2>
       <ul>
-        <li>Payments are processed via Paddle.</li>
+        <li>Payments are processed via Dodo Payments.</li>
         <li>Subscription plans include monthly, annual, and lifetime (5-year) options.</li>
         <li>No refunds are provided once a purchase is made.</li>
       </ul>

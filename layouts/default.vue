@@ -1,8 +1,7 @@
 <template>
-    <div>
+    <div class="flex flex-col min-h-screen">
         <DesktopNav />
         <slot></slot>
-        <Footer></Footer>
 
 
         <svg class="backgroundStuff redBlob"
@@ -36,6 +35,9 @@
                   d="M49.2,-27.9C62.1,-6,69.8,19.4,60.7,36.1C51.7,52.9,25.8,61.1,1.6,60.3C-22.7,59.4,-45.4,49.4,-55.7,31.9C-66,14.4,-63.8,-10.6,-52.4,-31.5C-41,-52.5,-20.5,-69.5,-1.2,-68.8C18.1,-68.1,36.3,-49.7,49.2,-27.9Z"
                   transform="translate(100 100)" />
         </svg>
+
+        <Footer></Footer>
+
     </div>
 </template>
 

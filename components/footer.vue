@@ -1,7 +1,7 @@
 <template>
   <footer class="">
 
-    <section class="flex flex-row items-center w-full">
+    <section class="flex flex-row items-center w-full min-h-fit">
       <div class="left-section flex-1 w-full flex flex-col items-center">
         <!-- <h1>Browser Gadgets</h1> -->
         <img src="../assets/images/browsergadgets_logo_with_text.png"
@@ -68,7 +68,7 @@ import { Icon } from '@iconify/vue';
 footer {
   background-color: #f2ecaa87;
   padding: 2rem 0;
-  margin-top: 10rem;
+  /* margin-top: 10rem; */
   width: 100%;
   text-align: left;
 }
