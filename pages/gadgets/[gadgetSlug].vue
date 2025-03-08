@@ -565,13 +565,13 @@ watchEffect(() => {
     useSeoMeta({
       // Basic Meta Tags
       title: `${gadgetData.value.name} - ${gadgetData.value.tagline}`,
-      description: gadgetData.shortDescription,
-      keywords: gadgetData.keywords,
+      description: gadgetData.value.shortDescription,
+      keywords: gadgetData.value.keywords,
       // author: 'Browser Gadgets',
 
       // Open Graph (OG) for Facebook, LinkedIn, etc.
       ogTitle: `${gadgetData.value.name} - ${gadgetData.value.tagline}`,
-      ogDescription: gadgetData.shortDescription,
+      ogDescription: gadgetData.value.shortDescription,
       ogImage: getShowImageImageURL(1), // Recommended dimensions: 1200x630px
       ogUrl: 'https://browsergadgets.io/gadgets/'+gadgetSlug,
       ogSiteName: gadgetData.value.name,
@@ -580,7 +580,7 @@ watchEffect(() => {
       // Twitter Cards
       twitterCard: 'summary_large_image',
       twitterTitle: `${gadgetData.value.name} - ${gadgetData.value.tagline}`,
-      twitterDescription: gadgetData.shortDescription,
+      twitterDescription: gadgetData.value.shortDescription,
       twitterImage: getShowImageImageURL(1), // Recommended dimensions: 1200x675px
       twitterSite: '@BrowserGadgets', // Your Twitter handle
       // twitterCreator: '@BrowserGadgets', // Your or the author's Twitter handle
