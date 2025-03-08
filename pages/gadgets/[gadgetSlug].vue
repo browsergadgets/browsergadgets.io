@@ -572,7 +572,7 @@ watchEffect(() => {
       // Open Graph (OG) for Facebook, LinkedIn, etc.
       ogTitle: `${gadgetData.value.name} - ${gadgetData.value.tagline}`,
       ogDescription: gadgetData.value.shortDescription,
-      ogImage: getShowImageImageURL(1), // Recommended dimensions: 1200x630px
+      ogImage: getOGImageURL(), // Recommended dimensions: 1200x630px
       ogUrl: 'https://browsergadgets.io/gadgets/'+gadgetSlug,
       ogSiteName: gadgetData.value.name,
       ogType: 'website',
@@ -581,7 +581,7 @@ watchEffect(() => {
       twitterCard: 'summary_large_image',
       twitterTitle: `${gadgetData.value.name} - ${gadgetData.value.tagline}`,
       twitterDescription: gadgetData.value.shortDescription,
-      twitterImage: getShowImageImageURL(1), // Recommended dimensions: 1200x675px
+      twitterImage: getOGImageURL(), // Recommended dimensions: 1200x675px
       twitterSite: '@BrowserGadgets', // Your Twitter handle
       // twitterCreator: '@BrowserGadgets', // Your or the author's Twitter handle
 
@@ -612,6 +612,9 @@ function useAsset(path: string): string {
 
 const getShowImageImageURL = (index) => {
   return useAsset(`images/gadgets/${gadgetSlug}/showImage_${index}` + '.png')
+}
+const getOGImageURL = () => {
+  return useAsset(`images/gadgets/${gadgetSlug}/ogImage.jpg`)
 }
 const gadgetLogoURL = useAsset(`images/gadgets/${gadgetSlug}/logo` + '.png')
 
