@@ -36,8 +36,8 @@
 <style>
 .refund-container {
   max-width: 800px;
+  margin: 0 auto;
   margin-bottom: 5rem;
-    margin: 0 auto;
   padding: 2rem;
   background-color: #f9f9f9;
   border-radius: 2rem;
