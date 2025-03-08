@@ -1,11 +1,10 @@
 <template>
   <div>
-    <gadgetPage></gadgetPage>
+    <h1>Sorry, couldn't find what you're looking for...</h1>
   </div>
 </template>
 
 <script lang="ts" setup>
-import gadgetPage from '../components/gadgetPage.vue';
 
 </script>
 

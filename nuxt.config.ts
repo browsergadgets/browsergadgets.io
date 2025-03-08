@@ -9,17 +9,12 @@ export default defineNuxtConfig({
 		"@pinia/nuxt",
 		"@vueuse/nuxt",
 		"@nuxt/image",
+		"shadcn-nuxt",
 	],
 	css: ["/assets/css/base.css"],
 	ssr: true,
 	devtools: { enabled: false },
-	// site: {
-	// 	url: 'https://browsergadgets.io',
-	// 	name: 'Browser Gadgets',
-	// 	description: 'Everything about Browser Extensions',
-	// 	defaultLocale: 'en', // not needed if you have @nuxtjs/i18n installed
-	// 	ogImage: { enabled: false },
-	// },
+
 	vite: {
 		server: {
 			allowedHosts: [".ngrok-free.app"],
@@ -102,5 +97,17 @@ export default defineNuxtConfig({
 			exclude: [],
 			cookieRedirect: false,
 		},
+	},
+
+	shadcn: {
+		/**
+		 * Prefix for all the imported component
+		 */
+		prefix: "",
+		/**
+		 * Directory that the component lives in.
+		 * @default "./components/ui"
+		 */
+		componentDir: "./components/ui",
 	},
 });

@@ -91,11 +91,11 @@ body {
     background-color: #7ed957;
 }
 
-button:active:not(:disabled){
+.button:active:not(:disabled){
     transform: scale(.95);
 }
 
-button:disabled{
+.button:disabled{
     /* transform: scale(.95); */
     filter: grayscale(.6);
     opacity: .6;
@@ -115,7 +115,7 @@ h2{
 }
 
 
-button {
+.button {
     background-color: var(--green);
     width: fit-content;
     padding: .5rem .7rem;
@@ -128,35 +128,35 @@ button {
     box-shadow: .1rem .1rem black;
 }
 
-button:hover {
+.button:hover {
     background-color: var(--green-light);
 
 }
 
-button.yellow-bg {
+.button.yellow-bg {
     color: #ffffff;
     background-color: #ffb219;
 }
 
-button.yellow-bg:hover {
+.button.yellow-bg:hover {
     background-color: var(--yellow);
 }
 
-button.red-bg {
+.button.red-bg {
     color: #ffffff;
     background-color: var(--red);
 }
 
-button.red-bg:hover {
+.button.red-bg:hover {
     background-color: var(--red-light);
 }
 
-button.purple-bg {
+.button.purple-bg {
     color: #ffffff;
     background-color: var(--purple);
 }
 
-button.purple-bg:hover {
+.button.purple-bg:hover {
     background-color: var(--purple-light);
 }
 
@@ -172,4 +172,35 @@ section{
 
     padding: 1rem 2rem;
     margin-block: 1rem;
+}
+
+.loader{
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    /* transform: translateX(50%) translateY(50%); */
+    font-size: 8rem;
+    color: white;
+    /* animation: colorChange; */
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+@keyframes colorChange {
+    0%{
+        color: var(--red);
+        
+    }
+    25%{
+        color: var(--green);
+        
+    }
+    50%{
+        color: var(--yellow);
+        
+    }
+    100%{
+        color: var(--purple);
+
+    }
 }

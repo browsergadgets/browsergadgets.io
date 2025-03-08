@@ -4,28 +4,28 @@
     <p class="my-4"><strong>Effective Date:</strong> 02 February, 2025</p>
 
 
-    <section>
+    <div class="partOfDoc-wrapper">
       <h2>No Refunds</h2>
       <p>All purchases made on BrowserGadgets.io are final. Refunds will not be provided once a payment has been
         processed.</p>
-    </section>
+    </div>
 
-    <section>
+    <div class="partOfDoc-wrapper">
       <h2>Chargeback & Dispute Resolution</h2>
       <p>If a chargeback is raised, we will investigate the issue. Fraudulent transactions will be refunded after
         verification. In rare cases, we may issue a refund at our discretion.</p>
-    </section>
+    </div>
 
-    <section>
+    <div class="partOfDoc-wrapper">
       <h2>Premium Access Issues</h2>
       <p>If users face issues accessing premium features, they must contact support. We will ensure that valid purchases
         are honored promptly.</p>
-    </section>
+    </div>
 
-    <section>
+    <div class="partOfDoc-wrapper">
       <h2>Agreement</h2>
       <p>By using BrowserGadgets.io, you acknowledge and agree to these policies.</p>
-    </section>
+    </div>
   </div>
 </template>
 
@@ -36,7 +36,8 @@
 <style>
 .refund-container {
   max-width: 800px;
-  margin: 0 auto;
+  margin-bottom: 5rem;
+    margin: 0 auto;
   padding: 2rem;
   background-color: #f9f9f9;
   border-radius: 2rem;
@@ -53,7 +54,7 @@ p {
   line-height: 1.6;
 }
 
-section {
-  margin-bottom: 2rem;
+.partOfDoc-wrapper {
+margin-bottom: 2rem;
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
-    <section class="flex flex-row p-0 my-0 justify-center items-center font-[MoreSugar] text-3xl">
+    <section class="flex flex-row p-0 my-0 justify-center items-center font-[MoreSugar] text-3xl relative">
+        <Toaster class="!right-2 !top-2" />
 
         <div class="sideView w-1/2 h-screen">
 
@@ -56,7 +57,7 @@
                                    v-model="lastName"
                                    class="">
                         </div>
-                        <button class="authButton yellow-bg self-end"
+                        <button class="button authButton yellow-bg self-end"
                                 :disabled="!nameValid"
                                 @click.prevent="nextStep">That's me!</button>
                     </div>
@@ -77,7 +78,7 @@
                                v-model="email"
                                @input="validateEmail">
 
-                        <button class="authButton self-end"
+                        <button class="button authButton self-end"
                                 :class="{ bounce: isValidEmail }"
                                 :disabled="!isValidEmail"
                                 @click.prevent="nextStep">{{ isSignUp ? buttonText : 'Next' }}</button>
@@ -102,7 +103,7 @@
                                id="confirmPasswordInput"
                                placeholder="Same Password here"
                                v-model="confirmPassword">
-                        <button class="authButton red-bg my-8 self-end"
+                        <button class="button authButton red-bg my-8 self-end"
                                 @click.prevent="nextStep"
                                 :disabled="!passwordValid">{{ isSignUp ? `Save Password 🔐` : 'Proceed' }}</button>
                     </div>
@@ -110,31 +111,9 @@
                          v-if="currentStep === 'verifyMail'">
                         <span>You'll get a mail to verify the Email address you have provided</span>
 
-                        <button class="authButton purple-bg my-8"
+                        <button class="button authButton purple-bg my-8"
                                 :disabled="otp.length < 4">Alright</button>
                     </div>
-                    <div class="otpInput-wrapper step-container flex flex-col justify-center items-center text-center w-full"
-                         v-if="currentStep === 'otp'">
-                        <label for="otpInput"
-                               class="text-[#333] my-2">Please enter the OTP sent to your email:</label>
-                        <v-otp-input ref="otpInput"
-                                     input-classes="otp-input"
-                                     :conditionalClass="['one', 'two', 'three', 'four']"
-                                     separator=""
-                                     inputType="number"
-                                     :num-inputs="4"
-                                     v-model="otp"
-                                     :should-auto-focus="true"
-                                     :should-focus-order="true"
-                                     @on-change="handleOnChange"
-                                     @on-complete="handleOnComplete"
-                                     :placeholder="['🍎', '🌲', '🌻', '🌷']" />
-
-                        <button class="authButton purple-bg my-8"
-                                :disabled="otp.length < 4">Let's Go🔥</button>
-                    </div>
-
-
                 </div>
 
                 <div class="oAuthbuttons-wrapper flex flex-row justify-center items-center w-full gap-5">
@@ -175,12 +154,16 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import VOtpInput from "vue3-otp-input";
 import { Icon } from '@iconify/vue/dist/iconify.js';
+import { useToast } from '@/components/ui/toast/use-toast'
 
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 // const isSignUp = ref(true)
+const { toast } = useToast()
+const toastOptions = {
+    duration: 3000
+}
 
 const route = useRoute();
 const router = useRouter();
@@ -253,8 +236,8 @@ const nextStep = async () => {
     if (currentStep.value == 'password') {
         if (isSignUp.value) {
             console.log("signing up new user!");
+            
             await signUpNewUser()
-            // await signUp(email.value, password.value)
         } else {
             console.log("signing in existing user!");
             await signInExistingUser()
@@ -278,41 +261,6 @@ const prevStep = () => {
 };
 
 
-async function signUp(email, password, provider = "email") {
-    const existingProvider = await checkEmailExists(email);
-
-    if (existingProvider) {
-        return alert(
-            `An account already exists with this email. Please log in using ${existingProvider.toUpperCase()}.`
-        );
-    }
-
-    if (provider === "email") {
-        await supabase.auth.signUp({ email, password });
-    } else {
-        await supabase.auth.signInWithOAuth({ provider });
-    }
-}
-
-async function linkOAuthToExistingUser(provider: string) {
-    // const { data, error } = await supabase.auth.getUser();
-
-    if (!user.value) return console.error("User not logged in");
-
-    const userEmail = user.value.email;
-
-    // Check if email is already registered
-    const existingProvider = await checkEmailExists(userEmail as string);
-
-    if (existingProvider && existingProvider !== provider) {
-        return alert(`This email is already linked with ${existingProvider.toUpperCase()}. Please log in using that.`);
-    }
-
-    // Proceed with OAuth login
-    await supabase.auth.signInWithOAuth({ provider });
-}
-
-
 async function signUpNewUser() {
     console.log("Creating a new user with this email: ", email.value);
     console.log("Password: ", password.value);
@@ -333,6 +281,14 @@ async function signUpNewUser() {
         },
 
     })
+
+    if (error) {
+        toast({
+            ...toastOptions,
+            title: error.message,
+            variant: 'destructive'
+        });
+    }
     console.log("data", data);
     console.log("error name", error?.name);
     console.log("error cause", error?.cause);
@@ -346,6 +302,13 @@ async function signInWithGoogle() {
         provider: 'google',
     })
 
+    if (error) {
+        toast({
+            ...toastOptions,
+            title: error.message,
+            variant: 'destructive'
+        });
+    }
     console.log("data", data);
     console.log("error name", error?.name);
     console.log("error cause", error?.cause);
@@ -357,6 +320,13 @@ async function signInWithGithub() {
         provider: 'github',
     })
 
+    if (error) {
+        toast({
+            ...toastOptions,
+            title: error.message,
+            variant: 'destructive'
+        });
+    }
     console.log("data", data);
     console.log("error name", error?.name);
     console.log("error cause", error?.cause);
@@ -375,6 +345,13 @@ async function signInExistingUser() {
 
         },
     })
+    if (error) {
+        toast({
+            ...toastOptions,
+            title: error.message,
+            variant: 'destructive'
+        });
+    }
     console.log("data", data);
     console.log("error name", error?.name);
     console.log("error cause", error?.cause);
@@ -382,32 +359,10 @@ async function signInExistingUser() {
     console.log("error message", error?.message);
 }
 
-async function checkEmailExists(email: string) {
-    const { data, error } = await supabase
-        .from("auth.users") // Internal table for users
-        .select("id, identities")
-        .eq("email", email)
-        .single();
-
-    if (error) {
-        return false; // No user found, safe to sign up
-    }
-
-    // If user exists, check how they signed up
-    if (data.identities.length > 0) {
-        const provider = data.identities[0].provider; // Could be 'email', 'google', 'github'
-        return provider;
-    }
-
-    return "email"; // Default to email/password if no provider is stored
-}
-
-
 
 
 
 const otpInput = ref<InstanceType<typeof VOtpInput> | null>(null);
-const bindModal = ref("");
 
 const handleOnComplete = (value: string) => {
     console.log("OTP completed: ", value);

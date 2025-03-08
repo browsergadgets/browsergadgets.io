@@ -6,7 +6,7 @@
 
       <h1 class="w-fit">Hello {{ displayName ? displayName : 'Buddy' }} 👋</h1>
 
-      <button class="logoutButton red-bg"
+      <button class="button logoutButton red-bg"
               @click="signOut">
         <Icon icon="material-symbols:logout-rounded"
               width="30"

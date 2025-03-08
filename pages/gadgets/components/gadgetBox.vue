@@ -1,49 +1,25 @@
-<template>
-    <div class="gadgetBox max-w-[30rem] max-h-fit overflow-clip"
+div<template>
+    <div class="gadgetBox max-w-[25rem] max-h-fit overflow-clip"
          :data-gadgetName="gadgetName">
 
-
-        <Teleport to="body"
-                  :disabled="!expandedViewEnabled">
-            <div class="imagesScroller-wrapper flex flex-row items-center justify-center gap-2 relative"
-                 :class="{
-                    'expandedView': expandedViewEnabled
-                }">
-                <button class="prevImageButton absolute left-0 text-white shadow-none w-fit h-fit"
-                        ref="prevImageButtonRef"
-                        @click="prevImage">
-                    <Icon icon="material-symbols:chevron-left-rounded"
-                          width="30"
-                          height="30" />
-                </button>
-                <div class="showImages-wrapper flex flex-row items-center justify-center overflow-x-auto ">
-
-                    <div v-for="index in totalShowImageCount"
-                         :key="index"
-                         class="flex flex-row items-center justify-center ">
-                        <div v-show="index === currentShowImageIndex"
-                             class="showImage-wrapper flex flex-row items-center justify-center cursor-pointer rounded-lg"
-                             @click="showExpandedView"
-                             v-on-click-outside="onClickOutsideExpandedViewHandler">
-                            <img :src="getShowImageImageURL(index)"
-                                 alt=""
-                                 class="">
-                        </div>
+        <Carousel class="relative w-full px-0 mb-2"
+                  @init-api="setApi">
+            <CarouselContent>
+                <CarouselItem v-for="index in totalShowImageCount"
+                              class=""
+                              :key="index">
+                    <div class="p-0 w-full">
+                        <img :src="getShowImageImageURL(index)"
+                             @click="() => { currentShowImageIndex = index; showExpandedView() }"
+                             alt=""
+                             class="rounded-lg w-full">
                     </div>
+                </CarouselItem>
+            </CarouselContent>
+            <CarouselPrevious class="-left-0" />
+            <CarouselNext class="-right-0" />
+        </Carousel>
 
-
-
-                </div>
-
-                <button class="nextImageButton absolute right-0 text-white shadow-none w-fit h-fit"
-                        ref="nextImageButtonRef"
-                        @click="nextImage">
-                    <Icon icon="material-symbols:chevron-right-rounded"
-                          width="30"
-                          height="30" />
-                </button>
-            </div>
-        </Teleport>
 
         <div class="gadgetBoxDetails_header flex flex-row  items-center cursor-pointer"
              @click="goToGadgetPage">
@@ -52,12 +28,24 @@
             <img :src="gadgetLogoURL"
                  alt=""
                  class="w-10 justify-self-start">
-            <h2 class="w-full ml-2">{{ gadgetData.name }}</h2>
 
-            <div class="metaData-wrapper flex flex-row gap-2 items-center justify-center flex-1 w-full">
+            <div class="w-full flex-1 ml-2">
 
+                <h2 class="w-full font-extrabold text-lg">{{ gadgetData.name }}</h2>
+
+            </div>
+            <div class="metaData-wrapper flex flex-row gap-2 items-center justify-center w-fit">
+
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger :reference="(userCountRef as Element)"></TooltipTrigger>
+                        <TooltipContent>
+                            <p>Add to library</p>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
                 <span class="metaDataSpan userCountSpan  select-none"
-                      title="Total Users Across Stores">
+                      title="Total Users Across Stores" ref="userCountRef">
                     <Icon icon="flowbite:users-solid" />{{ gadgetData.userCount }}
                 </span>
                 <span class="metaDataSpan avgRatingSpan  select-none"
@@ -67,13 +55,12 @@
             </div>
         </div>
 
-        <div class="gadgetBoxDetails_secondaryHeader cursor-pointer"
+        <div class="gadgetBoxDetails_secondaryHeader cursor-pointer mt-1"
              @click="goToGadgetPage">
 
-            <span class="taglineSpan text-md opacity-60 my-4">{{ gadgetData.tagline }}</span>
+            <span class="taglineSpan w-full text-sm opacity-60">{{ gadgetData.tagline }}</span>
 
-
-            <div class="supportedBrowsers-wrapper flex flex-row items-center justify-start my-2 py-1">
+            <div class="supportedBrowsers-wrapper flex flex-row items-center justify-start py-1">
                 <span class="text-sm opacity-55 mr-2 select-none">Available On </span>
                 <Icon :icon="`logos:${browserName}`"
                       class="mx-2"
@@ -84,11 +71,16 @@
 
         <div class="description-wrapper">
 
-            <p class="descriptionText p-2 mb-2">{{ expandedDescription ? gadgetData.description :
-                gadgetData.description.slice(0, 200) + '...' }} <button style="text-shadow: none;"
+            <p class="descriptionText p-2 mb-2">{{ expandedDescription ? gadgetData.shortDescription :
+                gadgetData.shortDescription.slice(0, 200) + '...' }} <button style="text-shadow: none;"
+                        v-show="gadgetData.shortDescription.length > 200"
                         class="readMoreButton bg-transparent p-0 shadow-none text-black hover:bg-transparent px-1 font-bold cursor-pointer select-none"
                         tabIndex="0"
-                        @click="() => { expandedDescription = !expandedDescription }">Read More</button></p>
+                        @click="() => { expandedDescription = !expandedDescription }">
+                    {{ expandedDescription ?
+                    'Read Less' :
+                    'Read More'}}
+                </button></p>
         </div>
 
 
@@ -99,10 +91,34 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick, useTemplateRef } from 'vue';
 import { Icon } from '@iconify/vue/dist/iconify.js';
+import { TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from 'reka-ui'
 
 import { vOnClickOutside } from '@vueuse/components'
-import { onClickOutside } from '@vueuse/core'
 
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
+import { watchOnce } from '@vueuse/core'
+import type { CarouselApi } from '@/components/ui/carousel'
+
+const api = ref<CarouselApi>()
+const totalCount = ref(0)
+const current = ref(0)
+
+function setApi(val: CarouselApi) {
+    api.value = val
+}
+
+watchOnce(api, (api) => {
+    if (!api)
+        return
+
+
+    totalCount.value = api.scrollSnapList().length
+    current.value = api.selectedScrollSnap() + 1
+
+    api.on('select', () => {
+        current.value = api.selectedScrollSnap() + 1
+    })
+})
 
 const router = useRouter()
 
@@ -116,26 +132,31 @@ const goToGadgetPage = () => {
 
 const expandedDescription = ref(false)
 
-
-const prevImageButtonRef = useTemplateRef<HTMLElement>('prevImageButtonRef')
-const nextImageButtonRef = useTemplateRef<HTMLElement>('nextImageButtonRef')
 const onClickOutsideExpandedViewHandler = [
     (ev) => {
         closeExpandedView()
     },
-    { ignore: [prevImageButtonRef, nextImageButtonRef] },
+    { ignore: [] },
 ]
 
 const totalShowImageCount = ref(null)
 const expandedViewEnabled = ref(false)
 const currentShowImageIndex = ref(1)
-const currenShowImageURLFormat = computed(() => {
-    return getShowImageImageURL(currentShowImageIndex)
-})
-const getShowImageImageURL = (index) => {
-    return '_nuxt/assets/images/gadgets/' + props.gadgetName + '/showImage_' + index + '.png'
+
+function useAsset(path: string): string {
+    const assets = import.meta.glob('~/assets/images/**/*', {
+        eager: true,
+        import: 'default',
+    })
+    // @ts-expect-error: wrong type info
+    return assets['/assets/' + path]
 }
-const gadgetLogoURL = ref('_nuxt/assets/images/gadgets/' + props.gadgetName + '/logo.png')
+
+const getShowImageImageURL = (index) => {
+    // return '_nuxt/assets/images/gadgets/' + props.gadgetName + '/showImage_' + index + '.png'
+    return useAsset(`images/gadgets/${props.gadgetName}/showImage_${index}` + '.png')
+}
+const gadgetLogoURL = useAsset(`images/gadgets/${props.gadgetName}/logo` + '.png')
 
 const keyPressHandler = (e: KeyboardEvent) => {
     if (expandedViewEnabled.value) {
@@ -159,16 +180,12 @@ const keyPressHandler = (e: KeyboardEvent) => {
     }
 }
 
+const userCountRef = useTemplateRef<Element>('userCountRef')
 
 onMounted(() => {
     // console.log("import.meta.url", import.meta.url);
     currentShowImageIndex.value = 1
     totalShowImageCount.value = props.gadgetData.showImageCount
-
-    document.addEventListener('keydown', keyPressHandler)
-})
-onUnmounted(() => {
-    document.removeEventListener('keydown', keyPressHandler)
 })
 
 const showExpandedView = () => {
@@ -179,23 +196,6 @@ const closeExpandedView = () => {
     expandedViewEnabled.value = false
 }
 
-const prevImage = () => {
-    if (currentShowImageIndex.value > 1) {
-        currentShowImageIndex.value--
-    }
-    else {
-        currentShowImageIndex.value = totalShowImageCount.value
-    }
-};
-
-const nextImage = () => {
-    if (currentShowImageIndex.value < totalShowImageCount.value) {
-        currentShowImageIndex.value++
-    } else {
-        currentShowImageIndex.value = 1
-
-    }
-};
 </script>
 
 <style scoped>

@@ -140,7 +140,7 @@ const toggleDropdown = () => {
 
     if (dropdownVisible.value) {
         nextTick(() => {
-            firstDropdownItem.value?.focus();
+           // firstDropdownItem.value?.focus();
         });
     }
 };
@@ -156,7 +156,7 @@ const closeDropdown = (event) => {
 
 const focusFirstItem = () => {
     nextTick(() => {
-        firstDropdownItem.value?.focus();
+        // firstDropdownItem.value?.focus();
     });
 };
 
@@ -191,6 +191,10 @@ onUnmounted(() => {
     max-width: 4rem;
     z-index: -2;
     pointer-events: none;
+    padding: .5rem;
+    background-color: white;
+    border-radius: .8rem;
+    box-shadow: .2rem .2rem .8rem rgba(0, 0, 0, 0.248);
     /* mix-blend-mode: multiply; */
 }
 
@@ -198,6 +202,27 @@ onUnmounted(() => {
     /* mix-blend-mode: multiply; */
     margin-left: 1rem;
     transition: .3s ease;
+    animation: alive;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+.navLogoLink:hover{
+    animation-play-state: paused;
+    transform: scale(1.4);
+}
+
+@keyframes alive {
+    0%{
+        transform: translateY(-.2rem);
+    }
+    50%{
+        transform: translateY(0rem);
+    }
+    100%{
+        transform: translateY(-.2rem);
+        
+    }
 }
 
 .navLogoLink:active {
