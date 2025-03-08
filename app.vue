@@ -23,27 +23,41 @@
 
 const websiteTitle = ref("Browser Gadgets - Solving your Browsing Problems")
 
+
+function useAsset(path: string): string {
+  const assets = import.meta.glob('~/assets/images/**/*', {
+    eager: true,
+    import: 'default',
+  })
+  // @ts-expect-error: wrong type info
+  return assets['/assets/' + path]
+}
+
+const getShowImageImageURL = (index) => {
+  return useAsset(`images/gadgets/${gadgetSlug}/showImage_${index}` + '.png')
+}
+
 useSeoMeta({
   // Basic Meta Tags
   title: websiteTitle.value,
-  description: 'Discover and master browser extensions with Browser Gadgets. Learn to build, find the best tools, and enhance your browsing experience.',
-  keywords: 'browser extensions, Chrome extensions, Firefox add-ons, extension development, browser tools',
+  description: 'Discover ultra useful and premium quality browser extensions and make your web a better place to be in.',
+  keywords: 'browser extensions, Chrome extensions, Firefox add-ons, extension development, browser tools, useful chrome extensions, best chrome extensions, top 5 most useful chrome extensions in 2025, useful browser extensions, chrome webstore, how to improve productivity, customize web, make browsing easier',
   author: 'Browser Gadgets',
 
   // Open Graph (OG) for Facebook, LinkedIn, etc.
   ogTitle: websiteTitle.value,
-  ogDescription: 'Master browser extensions with our expert guides, curated collections, and premium tools.',
-  ogImage: 'https://browsergadgets.io/assets/OGimage.png', // Recommended dimensions: 1200x630px
+  ogDescription: 'Make your browsing faster and more joyful with our highly efficient browser extensions.',
+  ogImage: '/OGimage.png', // Recommended dimensions: 1200x630px
   ogUrl: 'https://browsergadgets.io/',
   ogSiteName: 'Browser Gadgets',
   ogType: 'website',
-  ogLocale: 'en_US', // Change to your preferred locale
+  // ogLocale: 'en_US', // Change to your preferred locale
 
   // Twitter Cards
   twitterCard: 'summary_large_image',
   twitterTitle: websiteTitle.value,
-  twitterDescription: 'Explore, learn, and master browser extensions with Browser Gadgets.',
-  twitterImage: 'OGimage.png', // Recommended dimensions: 1200x675px
+  twitterDescription: 'Make your browsing faster and more joyful with our highly efficient browser extensions.',
+  twitterImage: '/OGimage.png', // Recommended dimensions: 1200x675px
   twitterSite: '@BrowserGadgets', // Your Twitter handle
   // twitterCreator: '@BrowserGadgets', // Your or the author's Twitter handle
 
