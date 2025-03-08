@@ -162,8 +162,9 @@ export default defineEventHandler(async (event) => {
 		try {
 			// Format Discord message
 			const { message } = formatDiscordMessage({
-				...payload,
-				id: headers["webhook-id"], // Pass webhook ID for log URL
+				type: payload.type,
+				data: payload.data,
+				id: headers["x-webhook-id"] || headers["webhook-id"], // Try both possible header formats
 			});
 
 			// Send to Discord
