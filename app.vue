@@ -6,17 +6,19 @@
       <Transition :name="pageTransitionName"
                   mode="out-in">
 
-          <NuxtPage />
-        </Transition>
-        
-        
-      </NuxtLayout>
-      
-      
-    </div>
+        <NuxtPage />
+      </Transition>
+
+
+    </NuxtLayout>
+
+
+  </div>
 </template>
 
 <script setup lang="ts">
+import { extensionIDsForDifferentBrowsers } from './data/gadgets'
+
 
 
 
@@ -71,6 +73,20 @@ useSeoMeta({
 
 onMounted(() => {
   console.log('onMounted hook called');
+
+  // Watch for user state changes and notify extension
+  watchEffect(() => {
+    const user = useSupabaseUser();
+    if (user.value)
+      sendMessageToExtension(chrome, 'info', 'user_exists')
+        ;
+    else
+      sendMessageToExtension(chrome, 'info', 'user_does_not_exist')
+        ;
+  });
+
+  sendMessageToExtension(chrome, 'general', 'browser_gadgets_opened')
+
 
 })
 

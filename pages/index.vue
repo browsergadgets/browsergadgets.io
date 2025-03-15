@@ -27,7 +27,6 @@
                      alt="logo"
                      class="gadgetCharacters"
                      data-speed="0.5"
-
                      style="left: 15%; bottom: 20%; rotate: 10deg;"></a>
 
 
@@ -93,6 +92,7 @@
 
 <script setup>
 import { onMounted } from 'vue';
+import { extensionIDsForDifferentBrowsers } from '~/data/gadgets';
 
 // const getTheData = async () => {
 //     const response = await $fetch('/api/g/mywebshortcuts/news/latestNews')
@@ -101,6 +101,7 @@ import { onMounted } from 'vue';
 // await getTheData()
 
 
+defineOgImageComponent('NuxtSeo')
 
 onMounted(async () => {
     const characters = document.querySelectorAll('.gadgetCharacters');
@@ -111,12 +112,12 @@ onMounted(async () => {
 
     window.addEventListener('scroll', () => {
         const scrolled = window.scrollY;
-        
+
         // Handle characters parallax
         characters.forEach(char => {
             const speed = char.dataset.speed;
             const yPos = -(scrolled * speed);
-            
+
             if (char.matches(':hover')) {
                 char.style.transform = `translateY(${yPos}px) scale(1.2) rotate(10deg)`;
             } else {
@@ -141,6 +142,7 @@ onMounted(async () => {
         });
     });
 
+
 });
 </script>
 
@@ -156,7 +158,8 @@ header {
     padding-top: 5rem;
 }
 
-header h1.colored-heading, .subHeading {
+header h1.colored-heading,
+.subHeading {
     transition: transform 0.2s ease-out, opacity 0.2s ease-out;
     will-change: transform, opacity;
 }
@@ -173,6 +176,7 @@ header h1.colored-heading {
     /* font-weight: 900; */
     /* font-size: 4rem; */
 }
+
 .subHeading {
     font-size: 3rem;
     font-family: 'MoreSugar';
@@ -207,16 +211,19 @@ header h1.colored-heading {
     background-color: var(--green);
     padding: 0.1rem 0.1rem;
 }
+
 .highlightedRed {
     color: var(--white);
     background-color: var(--red);
     padding: 0.1rem 0.1rem;
 }
+
 .highlightedPurple {
     color: var(--white);
     background-color: var(--purple);
     padding: 0.1rem 0.1rem;
-}   
+}
+
 .highlightedYellow {
     color: var(--white);
     background-color: var(--yellow);
@@ -247,5 +254,4 @@ header h1.colored-heading {
         transform: translateY(0px);
     }
 } */
-
 </style>

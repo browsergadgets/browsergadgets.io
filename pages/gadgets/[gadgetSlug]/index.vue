@@ -139,10 +139,11 @@
               <ul>
                 <li v-for="(featureText, index) in planData.features">{{ featureText }}</li>
               </ul>
-              <button class="button buyButton" @click="() => { billingDialogOpen = !billingDialogOpen }"
+              <button class="button buyButton"
+                      @click="() => { getButtonClicked(planData.code, planData.dodoProductId) }"
                       :style="{
                         'background-color': false ? gadgetData.theme.secondaryColor.medium : ''
-                      }">Buy</button>
+                      }">Get</button>
             </div>
 
           </div>
@@ -181,7 +182,8 @@
 
     </main>
 
-    <Dialog :open="billingDialogOpen" @update:open="() => { billingDialogOpen = !billingDialogOpen }">
+    <Dialog :open="billingDialogOpen"
+            @update:open="() => { billingDialogOpen = !billingDialogOpen }">
       <!-- <DialogTrigger>
         Pay now
       </DialogTrigger> -->
@@ -194,114 +196,111 @@
         </DialogHeader>
 
         <form @submit="onSubmit"
-              class="flex flex-col justify-center items-center">
+              class="flex flex-col justify-center items-center w-full max-w-4xl mx-auto">
 
-          <div class="flex flex-row gap-5 my-4 justify-between w-full">
+          <div class="flex flex-row gap-x-5 my-2 w-full">
+            <FormField v-slot="{ componentField }"
+                       name="firstName"
+                       class="w-1/2">
+              <FormItem>
+                <FormLabel>First Name</FormLabel>
+                <FormControl>
+                  <Input type="text"
+                         placeholder="Tony"
+                         v-bind="componentField"
+                         class="w-full min-w-[12rem]" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            </FormField>
 
             <FormField v-slot="{ componentField }"
-                       class="w-full"
-                       name="Address"
-                       :validate-on-blur="!isFieldDirty">
-              <FormItem class="w-full">
-                <FormLabel>Address</FormLabel>
+                       name="lastName"
+                       class="w-1/2">
+              <FormItem>
+                <FormLabel>Last Name</FormLabel>
+                <FormControl>
+                  <Input type="text"
+                         placeholder="Shark"
+                         v-bind="componentField"
+                         class="w-full min-w-[12rem]" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            </FormField>
+          </div>
 
-                <FormDescription>
-                  Please write your Address
-                </FormDescription>
+          <div class="flex flex-row gap-x-5 my-2 w-full">
+            <FormField v-slot="{ componentField }"
+                       name="street"
+                       class="w-1/2">
+              <FormItem>
+                <FormLabel>Street</FormLabel>
                 <FormControl>
                   <Input type="text"
                          placeholder="364 Kent St"
-                         v-bind="componentField" />
+                         v-bind="componentField"
+                         class="w-full min-w-[12rem]" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             </FormField>
-          </div>
-
-
-          <div class="flex flex-row gap-5 my-4 justify-between w-full">
 
             <FormField v-slot="{ componentField }"
-                       class=""
-                       name="city">
+                       name="city"
+                       class="w-1/2">
               <FormItem>
                 <FormLabel>City</FormLabel>
-
-                <FormDescription>
-                  Which city do you currently live in?
-                </FormDescription>
                 <FormControl>
                   <Input type="text"
                          placeholder="Sydney"
-                         v-bind="componentField" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            </FormField>
-            <FormField v-slot="{ componentField }"
-                       class=""
-                       name="zipcode">
-              <FormItem>
-                <FormLabel>Zip Code</FormLabel>
-
-                <FormDescription>
-                  Your Area Zip Code
-                </FormDescription>
-                <FormControl>
-                  <Input type="text"
-                         placeholder="2035"
-                         v-bind="componentField" />
+                         v-bind="componentField"
+                         class="w-full min-w-[12rem]" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             </FormField>
           </div>
 
-          <div class="flex flex-row gap-5 my-4 justify-between w-full">
-
+          <div class="flex flex-row gap-x-5 my-2 w-full">
             <FormField v-slot="{ componentField }"
-                       class=""
-                       name="state">
+                       name="state"
+                       class="w-1/2">
               <FormItem>
                 <FormLabel>State</FormLabel>
-
-                <FormDescription> Which state do you currently stay in?</FormDescription>
                 <FormControl>
                   <Input type="text"
                          placeholder="NSW"
-                         v-bind="componentField" />
+                         v-bind="componentField"
+                         class="w-full min-w-[12rem]" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             </FormField>
 
-
             <FormField v-slot="{ componentField }"
-                       class=""
-                       name="country">
+                       name="country"
+                       class="w-1/2">
               <FormItem>
                 <FormLabel>Country</FormLabel>
-
-                <FormDescription>Select the country you reside in
-                </FormDescription>
                 <Select v-bind="componentField">
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a country" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectGroup>
+                  <SelectContent class="">
+                    <SelectGroup class="w-full min-w-[12rem]">
                       <SelectItem v-for="country in countries"
                                   :key="country.code"
-                                  :value="country.code.toLowerCase()">
+                                  :value="country.code"
+                                  class=" hover:bg-[#2f2f2f90]">
                         <span class="flex justify-center items-center gap-2">
                           <Icon :icon="country.icon" />
                           <span>{{ country.name }}</span>
                         </span>
                       </SelectItem>
                     </SelectGroup>
-
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -309,17 +308,50 @@
             </FormField>
           </div>
 
+          <div class="flex flex-row gap-x-5 my-2 w-full">
+            <FormField v-slot="{ componentField }"
+                       name="zipcode"
+                       class="w-1/2">
+              <FormItem>
+                <FormLabel>Zip Code</FormLabel>
+                <FormControl>
+                  <Input type="text"
+                         placeholder="2035"
+                         v-bind="componentField"
+                         class="w-full min-w-[12rem]" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            </FormField>
+
+            <FormField v-slot="{ componentField }"
+                       name="discountCode"
+                       class="w-1/2">
+              <FormItem>
+                <FormLabel>Discount Code</FormLabel>
+                <FormControl>
+                  <Input type="text"
+                         placeholder="DISCOUNTCODE"
+                         v-bind="componentField"
+                         class="w-full min-w-[12rem]" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            </FormField>
+          </div>
+
           <Button type="submit"
-                  class="mt-2 hover:bg-[#2f2f2f] w-fit px-4">
+                  class="mt-4 w-full max-w-xs hover:bg-[#2f2f2f]">
             Submit
           </Button>
         </form>
+
       </DialogContent>
     </Dialog>
   </section>
 
   <div class="loader"
-       v-else>
+       v-if="!gadgetData">
     <Icon icon="line-md:loading-twotone-loop"></Icon>
   </div>
 </template>
@@ -335,6 +367,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { watchOnce } from '@vueuse/core'
 import DodoPayments from 'dodopayments';
+import { useToast } from '@/components/ui/toast/use-toast'
 
 import { Input } from '@/components/ui/input'
 
@@ -370,6 +403,15 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 
+const { toast } = useToast()
+const toastOptions = {
+  duration: 3000
+}
+
+const user = useSupabaseUser()
+const client = useSupabaseClient()
+
+
 const countrySchema = z.enum([
   "AF", "AX", "AL", "DZ", "AS", "AD", "AO", "AI", "AQ", "AG", "AR", "AM", "AW", "AU", "AT", "AZ",
   "BS", "BH", "BD", "BB", "BY", "BE", "BZ", "BJ", "BM", "BT", "BO", "BQ", "BA", "BW", "BV", "BR",
@@ -391,30 +433,33 @@ const countrySchema = z.enum([
 
 const formSchema = toTypedSchema(
   z.object({
-    billing: z.object({
-      city: z.string().min(1, "City name is required"),
-      country: countrySchema,
-      state: z.string().min(1, "State name is required"),
-      street: z.string().min(1, "Street address is required"),
-      zipcode: z.string().min(1, "Postal code is required"),
-    }),
+    // billing: z.object({
+    firstName: z.string().min(1, "First name is required"),
+    lastName: z.string().min(1, "Last name is required"),
+    discountCode: z.string().min(1, "Last name is required").optional(),
+    city: z.string().min(1, "City name is required"),
+    country: countrySchema,
+    state: z.string().min(1, "State name is required"),
+    street: z.string().min(1, "Street address is required"),
+    zipcode: z.string().min(1, "Postal code is required"),
+  }),
 
-    // customer: z.object({
-    //   customer_id: z.string().min(1, "Customer ID is required"),
-    // }),
+  // customer: z.object({
+  //   customer_id: z.string().min(1, "Customer ID is required"),
+  // }),
 
-    // discount_code: z.string().optional(),
+  // discount_code: z.string().optional(),
 
-    // metadata: z
-    //   .object({
-    //     supabase_user_id: z.string().optional(),
-    //   })
-    //   .optional(),
+  // metadata: z
+  //   .object({
+  //     supabase_user_id: z.string().optional(),
+  //   })
+  //   .optional(),
 
-    // payment_link: z.boolean().optional().default(false),
+  // payment_link: z.boolean().optional().default(false),
 
-    // return_url: z.string().url("Invalid URL format").optional(),
-  })
+  // return_url: z.string().url("Invalid URL format").optional(),
+  // })
 );
 
 const countries = [
@@ -473,16 +518,121 @@ const countries = [
 // const sortedCountries = countries.sort((a, b) => a.name.localeCompare(b.name));
 
 
-const form = useForm({
+const { isFieldDirty, handleSubmit } = useForm({
   validationSchema: formSchema,
 })
 
-const onSubmit = form.handleSubmit((values) => {
-  console.log('Form submitted!', values)
+const onSubmit = handleSubmit(async (values) => {
+  console.log("selectedPlan.value", selectedPlan.value);
+  console.log("selectedPlanDodoProductID.value", selectedPlanDodoProductID.value);
+  console.log("Selected values are", values);
+  
+  if (!selectedPlan.value || !selectedPlanDodoProductID.value) return;
+
+
+  const email = user.value?.email
+  const name = `${values.firstName} ${values.lastName}`
+  const customer_id = user.value?.user_metadata?.dodo_customer_id
+
+  console.log("customer_id", customer_id);
+  
+
+  const supabase_user_id = user.value?.id
+  const product_id = selectedPlanDodoProductID.value
+  const plan_code = selectedPlan.value
+  const discount_code = values.discountCode ?? null
+
+  const street = values.street
+  const city = values.city
+  const state = values.state
+  const country = values.country
+  const zipcode = values.zipcode
+
+  const return_url = 'localhost:3000/success'
+
+  const billingDetailsQuery = [`street=${street}`, `city=${city}`, `state=${state}`, `country=${country}`, `zipcode=${zipcode}`].join('&')
+
+  const metaDataQuery = [`supabase_user_id=${supabase_user_id}`,`product_id=${product_id}`, `plan_code=${plan_code}`].join('&')
+
+
+  const customerQuery = customer_id ? `customer_id=${customer_id}` : [`email=${email}`, `name=${name}`].join('&')
+
+  console.log("customerQuery", customerQuery);
+  
+
+  let finalQuery = `/api/payments/getPaymentLink?` + billingDetailsQuery + '&' + customerQuery + '&' + metaDataQuery + `&return_url=${return_url}` + `&product_code=${gadgetSlug}` + `&discount_code=${discount_code}`
+  console.log("finalQuery", finalQuery);
+  
+  finalQuery = encodeURI(finalQuery)
+
+  try {
+    const paymentObject = await $fetch(finalQuery)
+    if (paymentObject) {
+      console.log("paymentObject", paymentObject);
+
+      if (!customer_id) {
+        const { data, error } = await client.auth.updateUser({
+          data: { dodo_customer_id: paymentObject.customer.customer_id }
+        });
+
+        if (error) {
+          console.error("Failed to update user metadata:", error);
+        } else {
+          console.log("User metadata updated:", data);
+        }
+      }
+
+      window.open(paymentObject.payment_link, '_blank')
+      
+    }
+    
+  } catch (error) {
+    console.log(error);
+    console.log(error.message);
+    console.log(error.description);
+    console.log(error.statusMessage);
+    
+    toast({
+      ...toastOptions, 
+      title: "Something Went Wrong",
+      variant: 'destructive'
+
+    })
+    
+  }
+
+  // If dodo_customer_id didn't existed in query, it means that customer didn't exist in Dodo yet, so we must have received a custmomer id from Dodo (cus_gQyGqLgNdMbBUKAV8YPDT) and should set it in the user meta data
+
 })
 
 const billingDialogOpen = ref(false)
+const confirmBillingDetails = async () => {
 
+
+
+
+  // const email = query.email as string;
+  // const name = query.name as string;
+  // const city = query.city as string;
+  // const country = query.country as CountryCode;
+  // const state = query.state as string;
+  // const street = query.street as string;
+  // const zipcode = query.zipcode as string;
+  // const product_id = query.product_id as string;
+  // const product_code = query.product_code as string;
+  // const plan_code = query.plan_code as string;
+  // const supabase_user_id = query.supabase_user_id as string;
+  // const return_url = query.return_url as string;
+
+  // After checking if customer exists
+  // const customer_id = query.customerId as string;
+
+  // const paymentLink = await $fetch(`/api/payments/getPaymentLink?name=${name}&?email=${email}&?city=${city}&?street=${street}&?country=${country}&?state=${state}&?zipcode=${zipcode}&?plan_code=${selectedPlan.value}&product_code=${gadgetSlug.value}&${}`)
+
+  // if (paymentLink) {
+  //   window.open(paymentLink)
+  // }
+}
 
 const api = ref<CarouselApi>()
 const totalCount = ref(0)
@@ -573,7 +723,7 @@ watchEffect(() => {
       ogTitle: `${gadgetData.value.name} - ${gadgetData.value.tagline}`,
       ogDescription: gadgetData.value.shortDescription,
       ogImage: getOGImageURL(), // Recommended dimensions: 1200x630px
-      ogUrl: 'https://browsergadgets.io/gadgets/'+gadgetSlug,
+      ogUrl: 'https://browsergadgets.io/gadgets/' + gadgetSlug,
       ogSiteName: gadgetData.value.name,
       ogType: 'website',
 
@@ -639,11 +789,28 @@ const keyPressHandler = (e: KeyboardEvent) => {
   }
 }
 
-let formattedDescription;
+
+const selectedPlan = ref('')
+const selectedPlanDodoProductID = ref('')
+const getButtonClicked = (planCode: string, productId: string) => {
+  if (planCode !== 'free') {
+    billingDialogOpen.value = !billingDialogOpen.value
+    selectedPlan.value = planCode
+    selectedPlanDodoProductID.value = productId
+  }
+  else {
+    installExtension()
+  }
+
+
+}
+
+let formattedDescription: ComputedRef<string>;
 onMounted(async () => {
   console.log('gadgetSlug', gadgetSlug);
   gadgetData.value = await $fetch('/api/g/getGadgetData?name=' + gadgetSlug)
-  formattedDescription = computed(() => {
+  if (!gadgetData.value) return;
+  formattedDescription = computed<string>(() => {
     return gadgetData.value.description.replace(/\n/g, "<br>");
   });
   totalShowImageCount.value = gadgetData.value.showImageCount
@@ -777,6 +944,7 @@ const installExtension = () => {
   padding: .2rem;
   text-align: center;
   text-shadow: .2rem .2rem .0rem rgba(255, 255, 255, 0.195);
+  color: #f2f2f2
 }
 
 .plan-wrapper h3 {

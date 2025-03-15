@@ -10,11 +10,19 @@ export default defineNuxtConfig({
 		"@vueuse/nuxt",
 		"@nuxt/image",
 		"shadcn-nuxt",
+		"@nuxtjs/robots",
+		"@nuxtjs/sitemap",
+		"nuxt-link-checker",
+		"nuxt-og-image",
+		"nuxt-seo-utils",
 	],
 	css: ["/assets/css/base.css"],
 	ssr: true,
-	devtools: { enabled: false },
-
+	devtools: { enabled: true },
+	routeRules: {
+		"/signup": { redirect: "/auth/signup" },
+		"/login": { redirect: "/auth/login" },
+	},
 	vite: {
 		server: {
 			allowedHosts: [".ngrok-free.app"],

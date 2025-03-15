@@ -1,5 +1,5 @@
-div<template>
-    <div class="gadgetBox max-w-[25rem] max-h-fit overflow-clip"
+<template>
+    <div class="gadgetBox max-w-[25rem] max-h-fit overflow-clip hover:scale-105 duration-200"
          :data-gadgetName="gadgetName">
 
         <Carousel class="relative w-full px-0 mb-2"
@@ -21,46 +21,48 @@ div<template>
         </Carousel>
 
 
-        <div class="gadgetBoxDetails_header flex flex-row  items-center cursor-pointer"
+        <NuxtLink :to="'/gadgets/' + props.gadgetName">
+            <div class="gadgetBoxDetails_header flex flex-row px-5 items-center cursor-pointer">
+
+
+                <img :src="gadgetLogoURL"
+                     alt=""
+                     class="w-10 justify-self-start">
+
+                <div class="w-full flex-1 ml-2">
+
+                    <h2 class="w-full font-extrabold text-xl">{{ gadgetData.name }}</h2>
+
+                </div>
+                <div class="metaData-wrapper flex flex-row gap-2 items-center justify-center w-fit">
+
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger :reference="(userCountRef as Element)"></TooltipTrigger>
+                            <TooltipContent>
+                                <p>Add to library</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                    <span class="metaDataSpan userCountSpan  select-none"
+                          title="Total Users Across Stores"
+                          ref="userCountRef">
+                        <Icon icon="flowbite:users-solid" />{{ gadgetData.userCount }}
+                    </span>
+                    <span class="metaDataSpan avgRatingSpan  select-none"
+                          title="Average Rating Across Stores">
+                        <Icon icon="solar:stars-bold" />{{ gadgetData.avgRating }}
+                    </span>
+                </div>
+            </div>
+        </NuxtLink>
+
+        <div class="gadgetBoxDetails_secondaryHeader cursor-pointer my-2"
              @click="goToGadgetPage">
 
+            <span class="taglineSpan w-full text-md opacity-60">{{ gadgetData.tagline }}</span>
 
-            <img :src="gadgetLogoURL"
-                 alt=""
-                 class="w-10 justify-self-start">
-
-            <div class="w-full flex-1 ml-2">
-
-                <h2 class="w-full font-extrabold text-lg">{{ gadgetData.name }}</h2>
-
-            </div>
-            <div class="metaData-wrapper flex flex-row gap-2 items-center justify-center w-fit">
-
-                <TooltipProvider>
-                    <Tooltip>
-                        <TooltipTrigger :reference="(userCountRef as Element)"></TooltipTrigger>
-                        <TooltipContent>
-                            <p>Add to library</p>
-                        </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
-                <span class="metaDataSpan userCountSpan  select-none"
-                      title="Total Users Across Stores" ref="userCountRef">
-                    <Icon icon="flowbite:users-solid" />{{ gadgetData.userCount }}
-                </span>
-                <span class="metaDataSpan avgRatingSpan  select-none"
-                      title="Average Rating Across Stores">
-                    <Icon icon="solar:stars-bold" />{{ gadgetData.avgRating }}
-                </span>
-            </div>
-        </div>
-
-        <div class="gadgetBoxDetails_secondaryHeader cursor-pointer mt-1"
-             @click="goToGadgetPage">
-
-            <span class="taglineSpan w-full text-sm opacity-60">{{ gadgetData.tagline }}</span>
-
-            <div class="supportedBrowsers-wrapper flex flex-row items-center justify-start py-1">
+            <div class="supportedBrowsers-wrapper flex flex-row items-center justify-start py-1 mt-1">
                 <span class="text-sm opacity-55 mr-2 select-none">Available On </span>
                 <Icon :icon="`logos:${browserName}`"
                       class="mx-2"
@@ -78,8 +80,8 @@ div<template>
                         tabIndex="0"
                         @click="() => { expandedDescription = !expandedDescription }">
                     {{ expandedDescription ?
-                    'Read Less' :
-                    'Read More'}}
+                        'Read Less' :
+                        'Read More' }}
                 </button></p>
         </div>
 

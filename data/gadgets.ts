@@ -2,8 +2,10 @@ export const gadgetsData = {
 	mywebshortcuts: {
 		name: "My Web Shortcuts",
 		tagline: "Create Keyboard Shortcuts to interact with websites",
-		keywords: 'chrome extension, click on element chrome extension, autoclicker extension, keyboard shortcuts chrome extension, chrome extension to create keyboard shortcuts, custom keyboard shortcut, custom keyboard shortcuts in browser',
-		shortDescription: 'An extension to create keyboard shortcuts on websites to click on elements. This lets you save time and effort and improves your browsing experience.',
+		keywords:
+			"chrome extension, click on element chrome extension, autoclicker extension, keyboard shortcuts chrome extension, chrome extension to create keyboard shortcuts, custom keyboard shortcut, custom keyboard shortcuts in browser",
+		shortDescription:
+			"An extension to create keyboard shortcuts on websites to click on elements. This lets you save time and effort and improves your browsing experience.",
 		description: `Create custom keyboard shortcuts to access the web, and be more productive!
 
     Introducing My Web Shortcuts 🌏💻 — your new best friend for browsing!
@@ -49,7 +51,7 @@ export const gadgetsData = {
 		},
 		plans: [
 			{
-				id:'regularPack',
+				code: "free",
 				name: "Regular Pack 😇",
 				price: "Free Forever",
 				tagline:
@@ -62,9 +64,10 @@ export const gadgetsData = {
 				],
 			},
 			{
-				id: 'powerPack',
+				code: "powerPack",
 				name: "Power Pack ⚡",
 				price: "$49.99/lifetime",
+				dodoProductId: "pdt_o7QY5maK0jhm6CwvR4acc",
 				tagline:
 					"For Power Users who need quicker web navigation and improved browsing experience",
 				features: [
@@ -78,20 +81,32 @@ export const gadgetsData = {
 					"More to come!",
 				],
 			},
-			{
-				id: 'proSubscriber',
-				name: "Pro Subscriber 🔥",
-				price: "$2.99/month",
-				tagline:
-					"For Users who need all the power pack features but for limited time",
-				features: [
-					"Everything in Regular and Power pack",
-					"Sync shortcuts across browsers and devices seamlessly (Not available yet, coming soon)",
-				],
-			},
+			// {
+			// 	code: 'proSubscriber',
+			// 	name: "Pro Subscriber 🔥",
+			// 	price: "$2.99/month",
+			// 	tagline:
+			// 		"For Users who need all the power pack features but for limited time",
+			// 	features: [
+			// 		"Everything in Regular and Power pack",
+			// 		"Sync shortcuts across browsers and devices seamlessly (Not available yet, coming soon)",
+			// 	],
+			// },
 		],
 	},
 };
 
 // Available values and formats
 // supportedBrowsers: ["chrome", "brave", "firefox", "opera", "arc", "safari"]
+
+
+
+export const extensionIDsForDifferentBrowsers = {
+	chrome: "eieokkopejddkfnfioklcjabmhpbmgke",
+	"microsoft-edge": "npnjcbppikoclgpnnjebolaeclbgfhdf",
+	brave: "eieokkopejddkfnfioklcjabmhpbmgke",
+	opera: "eieokkopejddkfnfioklcjabmhpbmgke",
+	arc: "eieokkopejddkfnfioklcjabmhpbmgke",
+	safari: "",
+	firefox: "",
+};

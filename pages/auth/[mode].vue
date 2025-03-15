@@ -272,9 +272,7 @@ async function signUpNewUser() {
         password: password.value,
         options: {
             data: {
-                firstName: firstName.value,
-                lastName: lastName.value,
-                display_name: `${firstName.value} ${lastName.value}`
+                full_name: `${firstName.value} ${lastName.value}`
             }
             // emailRedirectTo: 'https://browsergadgets.io/welcome',
 
@@ -289,17 +287,12 @@ async function signUpNewUser() {
             variant: 'destructive'
         });
     }
-    console.log("data", data);
-    console.log("error name", error?.name);
-    console.log("error cause", error?.cause);
-    console.log("error code", error?.code);
-    console.log("error message", error?.message);
 
 }
 
 async function signInWithGoogle() {
     const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
+        provider: 'google'
     })
 
     if (error) {
@@ -309,12 +302,9 @@ async function signInWithGoogle() {
             variant: 'destructive'
         });
     }
-    console.log("data", data);
-    console.log("error name", error?.name);
-    console.log("error cause", error?.cause);
-    console.log("error code", error?.code);
-    console.log("error message", error?.message);
 }
+
+
 async function signInWithGithub() {
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'github',
@@ -327,12 +317,8 @@ async function signInWithGithub() {
             variant: 'destructive'
         });
     }
-    console.log("data", data);
-    console.log("error name", error?.name);
-    console.log("error cause", error?.cause);
-    console.log("error code", error?.code);
-    console.log("error message", error?.message);
 }
+
 
 async function signInExistingUser() {
     console.log("Signing in existing user with this email: ", email.value);
@@ -352,35 +338,8 @@ async function signInExistingUser() {
             variant: 'destructive'
         });
     }
-    console.log("data", data);
-    console.log("error name", error?.name);
-    console.log("error cause", error?.cause);
-    console.log("error code", error?.code);
-    console.log("error message", error?.message);
+
 }
-
-
-
-
-const otpInput = ref<InstanceType<typeof VOtpInput> | null>(null);
-
-const handleOnComplete = (value: string) => {
-    console.log("OTP completed: ", value);
-};
-
-const handleOnChange = (value: string) => {
-    console.log("OTP changed: ", value);
-};
-
-const clearInput = () => {
-    otpInput.value?.clearInput();
-};
-
-const fillInput = (value: string) => {
-    console.log(value);
-    otpInput.value?.fillInput(value);
-};
-
 
 function handleKeyPress(e: KeyboardEvent) {
 
@@ -412,9 +371,10 @@ onMounted(() => {
     })
 
 })
+
 </script>
 
-<style>
+<style scoped>
 .authContainer {
     background-color: rgba(233, 233, 233, 0.979);
     background-image: url('@/assets/images/colourfulbg.png');

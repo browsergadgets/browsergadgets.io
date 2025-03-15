@@ -114,7 +114,7 @@ const sendToDiscord = async (message: string) => {
 			body: JSON.stringify({
 				content: message,
 				username: "DodoPayments Webhook",
-				avatar_url: "https://example.com/webhook-avatar.png", // Optional avatar
+				// avatar_url: "https://example.com/webhook-avatar.png", // Optional avatar
 			}),
 		});
 	} catch (error) {
@@ -158,11 +158,14 @@ export default defineEventHandler(async (event) => {
 
 		// Parse webhook payload
 		const payload = await readBody(event);
+		console.log("payload", payload);
+		
 
 		try {
 			// Format Discord message
 			const { message } = formatDiscordMessage({
-				...payload,
+				type: payload.type,
+				data: payload.data,
 				id: headers["webhook-id"], // Pass webhook ID for log URL
 			});
 

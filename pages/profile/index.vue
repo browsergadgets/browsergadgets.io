@@ -15,6 +15,15 @@
         <span>Logout</span>
       </button>
 
+      <button class="button"
+              @click="changeData">
+        <Icon icon="material-symbols:logout-rounded"
+              width="30"
+              height="30"
+              class="mr-2" />
+        <span>Logout</span>
+      </button>
+
     </section>
 
 
@@ -39,6 +48,21 @@ const signOut = async () => {
   if (error) console.log(error)
 }
 
+const changeData = async () => {
+
+  const { data, error } = await supabase.auth.updateUser({
+    data: { hello: 'bruh' }
+  })
+
+  if (error) {
+    console.log(error)
+  }
+  else{
+    console.log(data);
+    
+  }
+}
+
 onMounted(() => {
   console.log(user.value);
 
@@ -47,13 +71,13 @@ onMounted(() => {
       navigateTo('/',)
     }
     else {
-      displayName.value = user.value.user_metadata.display_name
+      displayName.value = user.value.user_metadata.full_name
 
 
       // const { data, error } = await supabase.from('')
 
       // console.log("data", data);
-        
+
 
     }
   })
@@ -62,13 +86,10 @@ onMounted(() => {
 </script>
 
 <style>
-
-.logoutButton{
+.logoutButton {
   display: flex;
   align-items: center;
   width: fit-content;
   color: white;
 }
-
-
 </style>

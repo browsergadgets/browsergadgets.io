@@ -21,8 +21,7 @@
                 <NuxtLink v-if="!user"
                           :to="user ? 'profile' : '/auth/signup'"
                           exact-active-class="active-link"
-                          class="nav-link"
-                          style="color: var(--white); background-color: var(--green); box-shadow: .1rem .1rem rgb(0, 0, 0);">
+                          class="nav-link button">
                     <Icon :icon="user ? 'material-symbols:account-circle' : 'material-symbols:login-rounded'"
                           width="30"
                           height="30"
@@ -75,7 +74,6 @@
                         <NuxtLink to="/gadgets"
                                   exact-active-class="dropdown-active-link"
                                   class="dropdownItem"
-                                  href="#"
                                   role="menuitem">
                             <Icon icon="mage:dashboard-2-fill"
                                   width="30"
@@ -86,7 +84,6 @@
                         <NuxtLink to="/dashboard"
                                   exact-active-class="dropdown-active-link"
                                   class="dropdownItem"
-                                  href="#"
                                   role="menuitem">
                             <Icon icon="material-symbols:space-dashboard"
                                   width="30"
@@ -95,7 +92,6 @@
                             <span>Dashboard</span>
                         </NuxtLink>
                         <a class="dropdownItem red-bg"
-                           href="#"
                            @click.prevent="signOut"
                            role="menuitem">
                             <Icon icon="material-symbols:logout-rounded"
@@ -140,7 +136,7 @@ const toggleDropdown = () => {
 
     if (dropdownVisible.value) {
         nextTick(() => {
-           // firstDropdownItem.value?.focus();
+            // firstDropdownItem.value?.focus();
         });
     }
 };
@@ -177,7 +173,7 @@ const handleTabNavigation = (event) => {
 // Close dropdown when clicking outside
 onMounted(() => {
     console.log("user", user.value);
-    
+
     document.addEventListener("click", closeDropdown);
 });
 onUnmounted(() => {
@@ -202,26 +198,34 @@ onUnmounted(() => {
     /* mix-blend-mode: multiply; */
     margin-left: 1rem;
     transition: .3s ease;
-    animation: alive;
+    /* animation: hovering;
     animation-duration: 5s;
     animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
-.navLogoLink:hover{
-    animation-play-state: paused;
-    transform: scale(1.4);
+    animation-iteration-count: infinite; */
 }
 
-@keyframes alive {
-    0%{
+.navLogoLink:active {
+    transform: scale(.9);
+    transition: .1s ease;
+}
+
+.navLogoLink:hover {
+    transform: scale(1.05);
+    transition: .2s ease;
+}
+
+@keyframes hovering {
+    0% {
         transform: translateY(-.2rem);
     }
-    50%{
+
+    50% {
         transform: translateY(0rem);
     }
-    100%{
+
+    100% {
         transform: translateY(-.2rem);
-        
+
     }
 }
 
@@ -258,9 +262,11 @@ onUnmounted(() => {
     outline: .1rem transparent solid;
     /* border: .1rem transparent solid; */
 }
+
 .dropdownItem:focus {
     outline: .1rem black solid;
 }
+
 .dropdownItem:hover {
     outline: .1rem rgba(157, 157, 157, 0.372) solid;
     transition: .2s ease;
@@ -316,6 +322,7 @@ onUnmounted(() => {
 
 
 .nav-link {
+
     font-family: 'MoreSugar';
     text-shadow: .1rem .1rem rgb(0, 0, 0);
     font-weight: 900;
@@ -331,17 +338,18 @@ onUnmounted(() => {
     align-items: center;
     justify-content: center;
     border: .1rem solid transparent;
+    box-shadow: .2rem .2rem .8rem rgba(0, 0, 0, 0.248);
 }
 
 .nav-link:hover {
-    border: .1rem solid var(--white);
-    /* transition: .2s ease; */
+    /* border: .1rem solid var(--white); */
+    transform: scale(1.05);
+    transition: .2s ease;
 }
 
 .exploreGadgets-link {
     color: var(--white);
     background: linear-gradient(120deg, var(--purple-light), var(--red-light), var(--yellow-light), var(--green-light));
-    box-shadow: .1rem .1rem rgb(0, 0, 0);
     transition: background 0.5s ease, border 0.5s ease, transform 0.2s ease, border-color 0.1s ease;
     background-size: 200% 200%;
     animation: gradientAnimation 5s ease infinite;

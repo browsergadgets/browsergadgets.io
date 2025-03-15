@@ -1,6 +1,10 @@
 <template>
   <section>
-    <h1 class="text-[var(--red)]  font-[MoreSugar]">Discover Awesome <span class="text-[var(--green)]">Gadgets</span></h1>
+    <div class="gadgetsPageHeader rounded-2xl p-4">
+
+      <h1 class="gadgetsPageHeader">Discover Awesome <span class="gradientText">Gadgets</span>👀✨
+      </h1>
+    </div>
 
 
 
@@ -25,4 +29,26 @@ import { gadgetsData } from '~/data/gadgets';
 
 <style>
 
+
+.gadgetsPageHeader h1{
+  font-family: 'Akaya Kanadaka';
+  line-height: 5rem;
+}
+.gradientText {
+  background: linear-gradient(90deg, #ffee7e, hsl(0, 100%, 63%), #e97eff, #58f949);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientAnimation 5s infinite alternate ease-in-out;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+} 
 </style>
