@@ -8,6 +8,9 @@ import { extensionIDsForDifferentBrowsers } from "~/data/gadgets";
 export function sendMessageToExtension(chromeObject, message_type, message_data){
 	const browser = detectBrowser();
 
+	if (browser == 'firefox' || browser == 'safari') {
+		return;
+	}
 	if (extensionIDsForDifferentBrowsers[browser]) {
 		let extension_id = extensionIDsForDifferentBrowsers[browser];
 		// Check if extension is installed
