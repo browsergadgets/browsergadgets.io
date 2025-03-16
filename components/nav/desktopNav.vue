@@ -172,7 +172,7 @@ const handleTabNavigation = (event) => {
 
 // Close dropdown when clicking outside
 onMounted(() => {
-    console.log("user", user.value);
+    // console.log("user", user.value);
 
     document.addEventListener("click", closeDropdown);
 });

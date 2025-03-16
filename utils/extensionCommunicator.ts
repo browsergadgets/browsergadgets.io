@@ -5,19 +5,27 @@ import { extensionIDsForDifferentBrowsers } from "~/data/gadgets";
 
 
 
-export function sendMessageToExtension(chromeObject, message_type, message_data){
-	const browser = detectBrowser();
-
-	if (browser == 'firefox' || browser == 'safari') {
+export function sendMessageToExtension(browserObject, message_type, message_data){
+	console.log("browserObject: ", browserObject);
+	
+  if (!browserObject) {
+	console.log("browserObject doesn't exist, skipping messaging!");
+	
 		return;
 	}
+	// const browser = detectBrowser();
+	// if (browser == 'firefox' || browser == 'safari') {
+	// 	console.log("Non-chromium browser detected, skipping messaging");
+		
+	// 	return;
+	// }
 	if (extensionIDsForDifferentBrowsers[browser]) {
 		let extension_id = extensionIDsForDifferentBrowsers[browser];
 		// Check if extension is installed
-		if (chromeObject && chromeObject.runtime) {
-			// chromeObject = chrome
+		if (browserObject && browserObject.runtime) {
+			// browserObject = chrome
 			console.log("Chrome runtime is available");
-			chromeObject.runtime.sendMessage(
+			browserObject.runtime.sendMessage(
 				extension_id,
 				{ type: message_type, data: message_data },
 				(response) => {

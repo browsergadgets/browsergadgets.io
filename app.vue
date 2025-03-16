@@ -72,20 +72,21 @@ useSeoMeta({
 })
 
 onMounted(() => {
-  console.log('onMounted hook called');
+  // console.log('onMounted hook called');
 
+  const browserObject = window.chrome || window.browser
   // Watch for user state changes and notify extension
   watchEffect(() => {
     const user = useSupabaseUser();
     if (user.value)
-      sendMessageToExtension(chrome, 'info', 'user_exists')
+      sendMessageToExtension(browserObject, 'info', 'user_exists')
         ;
     else
-      sendMessageToExtension(chrome, 'info', 'user_does_not_exist')
+      sendMessageToExtension(browserObject, 'info', 'user_does_not_exist')
         ;
   });
 
-  sendMessageToExtension(chrome, 'general', 'browser_gadgets_opened')
+  sendMessageToExtension(browserObject, 'general', 'browser_gadgets_opened')
 
 
 })
