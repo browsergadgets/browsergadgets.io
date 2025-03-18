@@ -13,7 +13,7 @@ export function sendMessageToExtension(browserObject, message_type, message_data
 	
 		return;
 	}
-	// const browser = detectBrowser();
+	const browser = detectBrowser();
 	// if (browser == 'firefox' || browser == 'safari') {
 	// 	console.log("Non-chromium browser detected, skipping messaging");
 		
