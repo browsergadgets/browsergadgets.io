@@ -793,6 +793,9 @@ const keyPressHandler = (e: KeyboardEvent) => {
 const selectedPlan = ref('')
 const selectedPlanDodoProductID = ref('')
 const getButtonClicked = (planCode: string, productId: string) => {
+  if (!user.value) {
+    router.push('/auth/signup')
+  }
   if (planCode !== 'free') {
     billingDialogOpen.value = !billingDialogOpen.value
     selectedPlan.value = planCode
