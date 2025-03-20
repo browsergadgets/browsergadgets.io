@@ -548,7 +548,7 @@ const onSubmit = handleSubmit(async (values) => {
   const country = values.country
   const zipcode = values.zipcode
 
-  const return_url = 'localhost:3000/success'
+  const return_url = baseUrl + '/success'
 
   const billingDetailsQuery = [`street=${street}`, `city=${city}`, `state=${state}`, `country=${country}`, `zipcode=${zipcode}`].join('&')
 
