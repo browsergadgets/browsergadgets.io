@@ -28,6 +28,7 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
+    "@logtail/node": "^0.5.2",
     "@unhead/schema-org": "^2.0.0-rc.9",
     "@unhead/vue": "^2.0.0-rc.9",
     "@vee-validate/zod": "^4.15.0",

@@ -78,12 +78,15 @@ onMounted(() => {
   // Watch for user state changes and notify extension
   watchEffect(() => {
     const user = useSupabaseUser();
-    if (user.value)
-      sendMessageToExtension(browserObject, 'info', 'user_exists')
-        ;
-    else
-      sendMessageToExtension(browserObject, 'info', 'user_does_not_exist')
-        ;
+    const hasSentMessage = localStorage.getItem('userExistsSent') === 'true';
+
+    if (user.value && !hasSentMessage) {
+      sendMessageToExtension(browserObject, 'info', 'user_exists');
+      localStorage.setItem('userExistsSent', 'true');
+    } else if (!user.value) {
+      sendMessageToExtension(browserObject, 'info', 'user_does_not_exist');
+      localStorage.removeItem('userExistsSent'); // Reset if user logs out
+    }
   });
 
   sendMessageToExtension(browserObject, 'general', 'browser_gadgets_opened')
