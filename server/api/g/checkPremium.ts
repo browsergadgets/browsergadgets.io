@@ -67,6 +67,8 @@ export default defineEventHandler(async (event) => {
 			user_id: user.id,
 			product_code: productCode,
 			purchased_at: data.purchased_at,
+			plan_code: data.plan_code,
+			signature,
 		});
 
 		return {
