@@ -56,27 +56,6 @@ export default defineEventHandler(async (event) => {
 		) {
 			console.log("✅ Payment Succeeded!");
 
-			// ✅ Send Discord Notification
-			try {
-				console.log("📢 Sending Discord Message");
-
-				const { message } = formatDiscordMessage({
-					type: payload.type,
-					data: payload.data,
-					id: headers["webhook-id"] as string,
-				});
-
-				await sendToDiscord(message);
-			} catch (formatError) {
-				await sendToDiscord(`❌ Webhook Processing Error
-				  • Event Type: ${payload.type}
-				  • Error: ${
-						formatError instanceof Error ? formatError.message : "Unknown error"
-					}`);
-
-				throw formatError;
-			}
-
 			const client = await serverSupabaseServiceRole(event);
 
 			// ✅ Extract payment details
@@ -165,8 +144,28 @@ export default defineEventHandler(async (event) => {
 					statusMessage: "Database error: Failed to insert payment",
 				});
 			}
-
 			console.log("✅ Inserted payment record:", data);
+
+			// ✅ Send Discord Notification
+			try {
+				console.log("📢 Sending Discord Message");
+
+				const { message } = formatDiscordMessage({
+					type: payload.type,
+					data: payload.data,
+					id: headers["webhook-id"] as string,
+				});
+
+				await sendToDiscord(message);
+			} catch (formatError) {
+				await sendToDiscord(`❌ Webhook Processing Error
+				  • Event Type: ${payload.type}
+				  • Error: ${
+						formatError instanceof Error ? formatError.message : "Unknown error"
+					}`);
+
+				throw formatError;
+			}
 		}
 
 		// ✅ Return success response

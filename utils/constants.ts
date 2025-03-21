@@ -1,4 +1,4 @@
 export const baseUrl =
-	process.env.NUXT_ENV === "production"
-		? "https://browsergadgets.io"
-		: "localhost:3000";
+	process.env.NUXT_ENV == "development"
+		? "localhost:3000"
+		: "https://browsergadgets.io";
