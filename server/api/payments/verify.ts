@@ -45,7 +45,7 @@ export default defineEventHandler(async (event) => {
 			return { success: false, exists: false };
 		}
 
-		logMessage("success", "Payment ID found in database", { paymentId });
+		logMessage("info", "Payment ID found in database", { paymentId });
 		return { success: true, exists: true, paymentData: data };
 	} catch (error) {
 		logMessage("error", "Error in verify payment API", {
