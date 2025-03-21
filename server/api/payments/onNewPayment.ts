@@ -1,32 +1,44 @@
 import { Webhook } from "standardwebhooks";
 import {
 	serverSupabaseClient,
-	serverSupabaseUser,
 	serverSupabaseServiceRole,
 } from "#supabase/server";
 import { formatDiscordMessage, sendToDiscord } from "~/utils/discordNotifier";
 
 export default defineEventHandler(async (event) => {
 	try {
-		// Read raw body
+		// ✅ Read the raw body (only once)
 		const rawBody = await readRawBody(event);
+		if (!rawBody) {
+			throw createError({
+				statusCode: 400,
+				statusMessage: "Invalid request: Empty body",
+			});
+		}
 
-		// console.log("rawBody: ", rawBody);
+		// ✅ Parse webhook payload from rawBody
+		const payload = JSON.parse(rawBody);
+		if (!payload || !payload.type) {
+			throw createError({
+				statusCode: 400,
+				statusMessage: "Invalid webhook payload",
+			});
+		}
 
-		// Get headers
+		console.log("Webhook Payload: ", payload);
+
+		// ✅ Get headers for verification
 		const headers = getHeaders(event);
-		// console.log("headers: ", headers);
 
-		// Verify webhook signature using standardwebhooks
+		// ✅ Verify webhook signature
 		const webhook = new Webhook(process.env.DODO_WEBHOOK_SECRET || "");
 
 		try {
-			webhook.verify(rawBody || "", headers);
-
-			console.log("Webhook verified successfully!");
+			webhook.verify(rawBody, headers);
+			console.log("✅ Webhook verified successfully!");
 		} catch (verificationError) {
 			console.error(
-				"Webhook Signature Verification Failed:",
+				"❌ Webhook Signature Verification Failed:",
 				verificationError
 			);
 
@@ -36,35 +48,26 @@ export default defineEventHandler(async (event) => {
 			});
 		}
 
-		// Parse webhook payload
-		const payload = await readBody(event);
-		console.log("payload: ", payload);
-
-		console.log("payload.type", payload.type);
-
+		// ✅ Ensure valid payment data
 		if (
 			payload.type === "payment.succeeded" &&
-			payload.data.metadata.product_code &&
-			payload.data.metadata.product_code == "mywebshortcuts" &&
-			payload.data.metadata.plan_code &&
-			payload.data.metadata.plan_code == "powerPack"
+			payload.data?.metadata?.product_code === "mywebshortcuts" &&
+			payload.data?.metadata?.plan_code === "powerPack"
 		) {
-			console.log("Payment Succeeded!!");
+			console.log("✅ Payment Succeeded!");
 
+			// ✅ Send Discord Notification
 			try {
-				console.log("Sending Discord Message");
+				console.log("📢 Sending Discord Message");
 
-				// Format Discord message
 				const { message } = formatDiscordMessage({
 					type: payload.type,
 					data: payload.data,
-					id: headers["webhook-id"] as string, // Pass webhook ID for log URL
+					id: headers["webhook-id"] as string,
 				});
 
-				// Send to Discord
 				await sendToDiscord(message);
 			} catch (formatError) {
-				// Send formatting/processing error to Discord
 				await sendToDiscord(`❌ Webhook Processing Error
 				  • Event Type: ${payload.type}
 				  • Error: ${
@@ -76,40 +79,50 @@ export default defineEventHandler(async (event) => {
 
 			const client = await serverSupabaseServiceRole(event);
 
-			// Extract necessary fields
-			const paymentId = payload.data.payment_id;
-			const purchased_at = payload.data.created_at;
-			const metadata = payload.data.metadata; // Extract metadata once
-			const userId = metadata.supabase_user_id;
-			const productCode = metadata.product_code;
-			const planCode = metadata.plan_code;
+			// ✅ Extract payment details
+			const { payment_id, created_at, metadata } = payload.data;
+			const userId = metadata?.supabase_user_id;
+			const productCode = metadata?.product_code;
+			const planCode = metadata?.plan_code;
 			const expiresAt = payload.data.expires_at
 				? new Date(payload.data.expires_at).toISOString()
 				: null;
-			console.log("payment metadata: ", metadata);
-			console.log("user id from metadata: ", userId);
 
-			// Check if a record with this payment ID already exists
+			// ✅ Ensure required metadata fields exist
+			if (!userId || !productCode || !planCode) {
+				throw createError({
+					statusCode: 400,
+					statusMessage: "Missing required metadata in webhook payload",
+				});
+			}
+
+			console.log("📝 Payment Metadata: ", metadata);
+			console.log("👤 User ID: ", userId);
+
+			// ✅ Check for duplicate payment
 			const { data: existingPayment, error: paymentCheckError } = await client
 				.from("user_purchases")
 				.select("id")
-				.eq("id", paymentId)
+				.eq("id", payment_id)
 				.maybeSingle();
 
 			if (paymentCheckError) {
 				console.error(
-					"Error checking for existing payment record:",
+					"❌ Error checking for existing payment record:",
 					paymentCheckError
 				);
-				return;
+				throw createError({
+					statusCode: 500,
+					statusMessage: "Database error: Failed to check existing payment",
+				});
 			}
 
 			if (existingPayment) {
-				console.log("Payment ID already exists, skipping insertion.");
-				return;
+				console.log("⚠️ Payment already exists, skipping insertion.");
+				return { status: "ignored", message: "Duplicate payment detected" };
 			}
 
-			// Check if the user already has a plan for this product
+			// ✅ Check if user already has an active plan
 			const { data: existingPlan, error: planCheckError } = await client
 				.from("user_purchases")
 				.select("id")
@@ -118,49 +131,55 @@ export default defineEventHandler(async (event) => {
 				.maybeSingle();
 
 			if (planCheckError) {
-				console.error("Error checking for existing plan:", planCheckError);
-				return;
+				console.error("❌ Error checking for existing plan:", planCheckError);
+				throw createError({
+					statusCode: 500,
+					statusMessage: "Database error: Failed to check existing plan",
+				});
 			}
 
 			if (existingPlan) {
-				console.log(
-					"User already has an active plan for this product, skipping insertion."
-				);
-				return;
+				console.log("⚠️ User already has an active plan, skipping insertion.");
+				return {
+					status: "ignored",
+					message: "User already has an active plan",
+				};
 			}
 
-			// Insert into user_purchases
+			// ✅ Insert into `user_purchases`
 			const { data, error } = await client.from("user_purchases").insert([
 				{
-					id: paymentId, // Using payment_id as row id
+					id: payment_id,
 					user_id: userId,
 					product_code: productCode,
 					plan_code: planCode,
-					purchased_at,
+					purchased_at: created_at,
 					expires_at: expiresAt,
 				},
 			]);
 
 			if (error) {
-				console.error("Error inserting payment record:", error);
-			} else {
-				console.log("Inserted payment record:", data);
+				console.error("❌ Error inserting payment record:", error);
+				throw createError({
+					statusCode: 500,
+					statusMessage: "Database error: Failed to insert payment",
+				});
 			}
+
+			console.log("✅ Inserted payment record:", data);
 		}
 
-		// Acknowledge successful processing
+		// ✅ Return success response
 		return {
 			status: "success",
 			message: "Webhook processed successfully",
 		};
 	} catch (error) {
-		// Log detailed error for server-side tracking
+		console.error("🚨 Webhook processing failed:", error);
 		throw createError({
 			statusCode: 500,
 			statusMessage: "Webhook processing failed",
-			data: {
-				error: error instanceof Error ? error.message : "Unknown error",
-			},
+			data: { error: error instanceof Error ? error.message : "Unknown error" },
 		});
 	}
 });
