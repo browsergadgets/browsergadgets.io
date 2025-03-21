@@ -4,6 +4,7 @@ import {
 	serverSupabaseUser,
 	serverSupabaseServiceRole,
 } from "#supabase/server";
+import { formatDiscordMessage, sendToDiscord } from "~/utils/discordNotifier";
 
 export default defineEventHandler(async (event) => {
 	try {
@@ -41,8 +42,38 @@ export default defineEventHandler(async (event) => {
 
 		console.log("payload.type", payload.type);
 
-		if (payload.type === "payment.succeeded") {
+		if (
+			payload.type === "payment.succeeded" &&
+			payload.data.metadata.product_code &&
+			payload.data.metadata.product_code == "mywebshortcuts" &&
+			payload.data.metadata.plan_code &&
+			payload.data.metadata.plan_code == "powerPack"
+		) {
 			console.log("Payment Succeeded!!");
+
+			try {
+				console.log("Sending Discord Message");
+
+				// Format Discord message
+				const { message } = formatDiscordMessage({
+					type: payload.type,
+					data: payload.data,
+					id: headers["webhook-id"] as string, // Pass webhook ID for log URL
+				});
+
+				// Send to Discord
+				await sendToDiscord(message);
+			} catch (formatError) {
+				// Send formatting/processing error to Discord
+				await sendToDiscord(`❌ Webhook Processing Error
+				  • Event Type: ${payload.type}
+				  • Error: ${
+						formatError instanceof Error ? formatError.message : "Unknown error"
+					}`);
+
+				throw formatError;
+			}
+
 			const client = await serverSupabaseServiceRole(event);
 
 			// Extract necessary fields
@@ -105,7 +136,7 @@ export default defineEventHandler(async (event) => {
 					user_id: userId,
 					product_code: productCode,
 					plan_code: planCode,
-					// purchased_at,
+					purchased_at,
 					expires_at: expiresAt,
 				},
 			]);
