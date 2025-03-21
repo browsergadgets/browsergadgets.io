@@ -17,13 +17,6 @@ const user = useSupabaseUser();
 const paymentId = route.query.payment_id;
 const paymentStatus = route.query.status;
 
-// 🔍 Redirect to root if not authenticated or missing params
-if (!user.value || !paymentId || paymentStatus !== "succeeded") {
-    router.replace("/");
-} else {
-    checkPaymentStatus();
-}
-
 // ✅ Payment Verification Function
 const checkPaymentStatus = async (retryCount = 0) => {
     try {
@@ -41,4 +34,12 @@ const checkPaymentStatus = async (retryCount = 0) => {
         router.replace("/payment/failed");
     }
 };
+
+// 🔍 Redirect to root if not authenticated or missing params
+if (!user.value || !paymentId || paymentStatus !== "succeeded") {
+    router.replace("/");
+} else {
+    checkPaymentStatus();
+}
+
 </script>
